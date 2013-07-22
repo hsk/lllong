@@ -57,7 +57,7 @@ object compact {
   private val eol = """(?s)^([;:])(.*$)""".r
   private val spc1 = """(?s)^(\r\n|\r|\n)(.*$)""".r
   private val spc = """(?s)^([\s]+)(.*$)""".r
-  private val str1 = """(?s)^("([^"]|\")*")(.*$)""".r
+  private val str1 = """(?s)^("(\\.|[^"\\]*)*")(.*$)""".r
   private val eof = """(?s)^[\s]*($)""".r
 
   
@@ -189,18 +189,17 @@ object compact {
       ptoken
     }
     def replaceStr(e:String):String = {
-      println("e='"+e+"'")
-        val e2 = e.substring(1, e.length - 1).
-          replaceAll("""\\"""","\"").
-          replaceAll("""\\b""","\b").
-          replaceAll("""\\f""","\f").
-          replaceAll("""\\n""","\n").
-          replaceAll("""\\r""","\r").
-          replaceAll("""\\t""","\t").
-          replaceAll("""\\\\""","\\\\")
-          """u([0-9a-fA-F]{4})""".r.replaceAllIn(e2, m => String.valueOf(Integer.parseInt(m.group(1), 16)) )
-
-      println("e2='"+e2+"'")
+      //println("e='"+e+"'")
+      val e2 = e.substring(1, e.length - 1).
+        replaceAll("""\\"""","\"").
+        replaceAll("""\\b""","\b").
+        replaceAll("""\\f""","\f").
+        replaceAll("""\\n""","\n").
+        replaceAll("""\\r""","\r").
+        replaceAll("""\\t""","\t").
+        replaceAll("""\\\\""","\\\\")
+      //  """\\u([0-9a-fA-F]{4})""".r.replaceAllIn(e2, m => String.valueOf(Integer.parseInt(m.group(1), 16)) )
+      //println("e2='"+e2+"'")
       e2
     }
     lex()

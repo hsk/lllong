@@ -18,12 +18,12 @@ _main:                                  ## @main
 	movb	$1, %al
 	testb	%al, %al
 	jne	LBB0_2
-## BB#1:                                ## %ok13
+## BB#1:                                ## %ok15
 	leaq	L_.str1767(%rip), %rdi
 	callq	_glutGameModeString
 	callq	_glutEnterGameMode
 	jmp	LBB0_3
-LBB0_2:                                 ## %else14
+LBB0_2:                                 ## %else16
 	movq	8(%rsp), %rax
 	movq	(%rax), %rdi
 	callq	_glutCreateWindow
@@ -93,7 +93,7 @@ LCPI2_6:
 	.globl	_main_display
 	.align	4, 0x90
 _main_display:                          ## @main_display
-## BB#0:                                ## %leave57
+## BB#0:                                ## %leave59
 	pushq	%rbx
 	subq	$48, %rsp
 	movq	___stack_chk_guard@GOTPCREL(%rip), %rbx
@@ -175,7 +175,7 @@ LBB2_2:                                 ## %CallStackCheckFailBlk
 	.globl	_Game_new
 	.align	4, 0x90
 _Game_new:                              ## @Game_new
-## BB#0:                                ## %leave140
+## BB#0:                                ## %leave142
 	movq	%rdi, -8(%rsp)
 	movl	$0, 32(%rdi)
 	movq	-8(%rsp), %rax
@@ -202,13 +202,13 @@ _Game_title:                            ## @Game_title
 	movl	16(%rax), %eax
 	testq	%rax, %rax
 	je	LBB4_2
-## BB#1:                                ## %ok187
+## BB#1:                                ## %ok189
 	movq	-8(%rsp), %rax
 	movl	$0, 12(%rax)
 	leaq	_Game_title_end(%rip), %rax
 	movq	-8(%rsp), %rcx
 	movq	%rax, 16(%rcx)
-LBB4_2:                                 ## %leave173
+LBB4_2:                                 ## %leave175
 	ret
 
 	.section	__TEXT,__literal8,8byte_literals
@@ -923,11 +923,11 @@ _Game_title_end:                        ## @Game_title_end
 	movl	12(%rax), %eax
 	cmpq	$61, %rax
 	jl	LBB6_2
-## BB#1:                                ## %ok903
+## BB#1:                                ## %ok905
 	movq	-8(%rsp), %rax
 	leaq	_Game_init(%rip), %rcx
 	movq	%rcx, 16(%rax)
-LBB6_2:                                 ## %leave889
+LBB6_2:                                 ## %leave891
 	ret
 
 	.globl	_Game_demo
@@ -947,7 +947,7 @@ _Game_ranking:                          ## @Game_ranking
 	.globl	_Game_init
 	.align	4, 0x90
 _Game_init:                             ## @Game_init
-## BB#0:                                ## %leave923
+## BB#0:                                ## %leave925
 	pushq	%rax
 	movq	%rdi, (%rsp)
 	movl	$0, 32(%rdi)
@@ -977,11 +977,11 @@ _Game_stageStart:                       ## @Game_stageStart
 	movl	12(%rdi), %eax
 	cmpq	$241, %rax
 	jl	LBB10_2
-## BB#1:                                ## %ok963
+## BB#1:                                ## %ok965
 	movq	(%rsp), %rax
 	leaq	_Game_game(%rip), %rcx
 	movq	%rcx, 16(%rax)
-LBB10_2:                                ## %leave962
+LBB10_2:                                ## %leave964
 	movq	(%rsp), %rdi
 	callq	_Game_game
 	popq	%rax
@@ -997,10 +997,10 @@ _Game_game:                             ## @Game_game
 	andq	$3, %rax
 	cmpq	$3, %rax
 	jne	LBB11_2
-## BB#1:                                ## %ok986
+## BB#1:                                ## %ok988
 	movq	(%rsp), %rax
 	addl	$10, 32(%rax)
-LBB11_2:                                ## %leave985
+LBB11_2:                                ## %leave987
 	movq	(%rsp), %rax
 	incl	12(%rax)
 	callq	_Ship_move
@@ -1033,7 +1033,7 @@ _Game_boss:                             ## @Game_boss
 	.globl	_Game_nextStage
 	.align	4, 0x90
 _Game_nextStage:                        ## @Game_nextStage
-## BB#0:                                ## %leave1033
+## BB#0:                                ## %leave1035
 	movq	%rdi, -8(%rsp)
 	incl	(%rdi)
 	leaq	_Game_stageStart(%rip), %rax
@@ -1075,7 +1075,7 @@ _downKey:                               ## @downKey
 ## BB#1:                                ## %entry
 	cmpb	$32, %al
 	jne	LBB19_9
-## BB#2:                                ## %switch10574
+## BB#2:                                ## %switch10584
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, 16(%rax)
 	ret
@@ -1089,20 +1089,20 @@ LBB19_3:                                ## %entry
 	movslq	(%rax,%rcx,4), %rcx
 	addq	%rax, %rcx
 	jmpq	*%rcx
-LBB19_7:                                ## %switch10572
+LBB19_7:                                ## %switch10582
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, 8(%rax)
 	ret
-LBB19_5:                                ## %switch10570
+LBB19_5:                                ## %switch10580
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, (%rax)
 	ret
-LBB19_8:                                ## %switch10573
+LBB19_8:                                ## %switch10583
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, 12(%rax)
-LBB19_9:                                ## %leave1055
+LBB19_9:                                ## %leave1056
 	ret
-LBB19_6:                                ## %switch10571
+LBB19_6:                                ## %switch10581
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, 4(%rax)
 	ret
@@ -1131,7 +1131,7 @@ _upKey:                                 ## @upKey
 ## BB#1:                                ## %entry
 	cmpb	$27, %al
 	jne	LBB20_2
-## BB#10:                               ## %switch10855
+## BB#10:                               ## %switch10865
 	callq	_glutLeaveGameMode
 	xorl	%edi, %edi
 	callq	_exit
@@ -1146,7 +1146,7 @@ LBB20_4:                                ## %entry
 	movslq	(%rax,%rcx,4), %rcx
 	addq	%rax, %rcx
 	jmpq	*%rcx
-LBB20_8:                                ## %switch10852
+LBB20_8:                                ## %switch10862
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, 8(%rax)
 	addq	$24, %rsp
@@ -1154,25 +1154,25 @@ LBB20_8:                                ## %switch10852
 LBB20_2:                                ## %entry
 	cmpb	$32, %al
 	jne	LBB20_11
-## BB#3:                                ## %switch10854
+## BB#3:                                ## %switch10864
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, 16(%rax)
 	addq	$24, %rsp
 	ret
-LBB20_11:                               ## %leave1083
+LBB20_11:                               ## %leave1084
 	addq	$24, %rsp
 	ret
-LBB20_6:                                ## %switch10850
+LBB20_6:                                ## %switch10860
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, (%rax)
 	addq	$24, %rsp
 	ret
-LBB20_9:                                ## %switch10853
+LBB20_9:                                ## %switch10863
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, 12(%rax)
 	addq	$24, %rsp
 	ret
-LBB20_7:                                ## %switch10851
+LBB20_7:                                ## %switch10861
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, 4(%rax)
 	addq	$24, %rsp

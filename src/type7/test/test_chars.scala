@@ -55,6 +55,13 @@ object test_chars extends TestCase {
       """{println("\u03bb1")}""",
       null,
       (0, "λ1\n", ""))
+
+    test("文字列出力9",
+      """{println("640x480:32@60")}""",
+      null,
+      (0, "640x480:32@60\n", ""))
+
+      
     test("文字列出力10",
       """{println("あいうえa")}""",
       null,
