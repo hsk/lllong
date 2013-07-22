@@ -1,0 +1,2 @@
+PA=$(cd $(dirname $0);pwd)
+java -Dfile.encoding=UTF-8 -jar $PA/type7.jar $@
