@@ -1,0 +1,648 @@
+import opengl
+
+var GLUT_RGBA:int = 0
+var GLUT_DOUBLE:int = 2
+var GLUT_DEPTH:int = 16
+var GLUT_KEY_LEFT:byte = 100
+var GLUT_KEY_UP:byte = 101
+var GLUT_KEY_RIGHT:byte = 102
+var GLUT_KEY_DOWN:byte = 103
+var GLUT_KEY_SPACE:byte = 32
+
+var GL_COLOR_BUFFER_BIT:int = 16384
+var GL_QUADS:int = 7
+var GL_LINE_LOOP:int = 2
+var GL_POLYGON:int = 9
+
+var GL_PROJECTION:int = 0x1701
+var GL_DEPTH_BUFFER_BIT:int = 0x00000100
+var GL_MODELVIEW:int = 0x1700
+var GL_DEPTH_TEST:int = 0x0B71
+var GL_BLEND:int = 0x0BE2
+var GL_SRC_ALPHA:int = 0x0302
+var GL_ONE_MINUS_SRC_ALPHA:int = 0x0303
+var GL_ONE:int = 1
+var GL_LIGHT0:int = 0x4000
+var GL_LIGHTING:int = 0x0B50
+var GL_POSITION:int = 0x1203
+var GL_DIFFUSE:int = 0x1201
+var GL_FRONT_AND_BACK:int = 0x0408
+
+def exit(a:int):void
+
+var fullscreen:int = 0
+
+def main(argc:int, argv:Ptr[Ptr[char]]) {
+  ship.x = 0.0
+  ship.y = 0.0
+  glutInit(&argc, argv)
+  glutInitWindowSize(640, 480)
+  if (0) {
+    glutGameModeString("640x480:32@60")
+    glutEnterGameMode()
+  } else {
+    glutCreateWindow(argv[0])
+  }
+  //  glutFullScreen()
+  glutInitDisplayMode(GLUT_RGBA)
+  //glEnable(GL_DEPTH_TEST)
+  glEnable(GL_BLEND)
+  glEnable(GL_LIGHTING)
+  glEnable(GL_LIGHT0)
+  
+  glutDisplayFunc(main_display)
+  glutTimerFunc(20, main_loop, 0)
+
+  glutSpecialFunc(downKey)
+  glutSpecialUpFunc(upKey)
+  Game_new(&game)
+  glutMainLoop()
+  print_i(33)
+  aaa()
+}
+
+def main_loop(a:int) {
+  game.move(&game)
+  glutPostRedisplay()
+  glutTimerFunc(1000/50 , main_loop , 0)
+}
+
+def main_display() {
+  var WIDTH:int = 640
+  var HEIGHT:int = 480
+  
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glViewport(0, 0, 640, 480)
+
+  glMatrixMode(GL_PROJECTION)
+  glLoadIdentity()
+
+  //視野角,アスペクト比(ウィンドウの幅/高さ),描画する範囲(最も近い距離,最も遠い距離)
+  gluPerspective(90.0, cast(double)WIDTH / cast(double)HEIGHT, 1.0, 10000.0)
+ // ライトの設定
+ var n:float = 10.0
+ var lightpos:Array[float,4]
+
+ lightpos[0] = 500.0 * n
+ lightpos[1] = 802.0 * n
+ lightpos[2] = 505.0 * n
+ lightpos[3] = 1.0
+  glLightfv(GL_LIGHT0, GL_POSITION, cast(Ptr[float])lightpos)
+
+  glMatrixMode(GL_MODELVIEW)
+  glLoadIdentity()
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE)
+  gluLookAt(0.0,0.0,320.0, //カメラの座標
+    0.0,0.0,0.0, // 注視点の座標
+    0.0,1.0,0.0) // 画面の上方向を指すベクトル 
+ 
+  game.draw()
+  glFlush()
+}
+
+
+// Game {
+  typedef Game = struct {
+    stage:int
+    num:int
+    hiscore:int
+    cnt:int
+    move:(Ptr[Game])=>void
+    draw:()=>void
+    score:int
+  }
+
+  var game:Game
+
+  def Game_new(game:*Game) {
+    game->score = 0
+    game->num = 3
+    game->stage = 1
+    game->cnt = 0
+    game->move = Game_title
+    game->draw = Game_title_draw
+  }
+
+  /**
+   * タイトル画面
+   * space でスタート
+   * 一定時間でデモに
+   */
+  def Game_title(game:*Game) {
+    game->cnt++
+    if(key.space) {
+      game->cnt = 0
+      game->move = Game_title_end
+    }
+  }
+
+  def Game_title_draw() {
+    glPushMatrix()
+
+    glRotated(-90.0, 0.0, 1.0, 0.0)
+
+    glRotated(cast(double)game.cnt, 0.0, 1.0, 0.0)
+
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,31.157,302.668)
+      glVertex3d(0.0,26.706,429.5215)
+      glVertex3d(0.0,135.7555,425.0705)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,135.7555,425.0705)
+      glVertex3d(0.0,137.981,53.412)
+      glVertex3d(0.0,31.157,302.668)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,-0.0,-0.0)
+      glVertex3d(0.0,137.981,53.412)
+      glVertex3d(0.0,33.3825,204.746)
+      glVertex3d(0.0,31.157,302.668)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-89.02,46.7355)
+      glVertex3d(0.0,-37.8335,206.9715)
+      glVertex3d(0.0,33.3825,204.746)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,33.3825,204.746)
+      glVertex3d(0.0,137.981,53.412)
+      glVertex3d(0.0,-89.02,46.7355)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-89.02,46.7355)
+      glVertex3d(0.0,-40.059,433.9725)
+      glVertex3d(0.0,-37.8335,206.9715)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,-0.0,0.0)
+      glVertex3d(0.0,-115.726,195.844)
+      glVertex3d(0.0,-111.275,429.5215)
+      glVertex3d(0.0,-40.059,433.9725)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,-0.0)
+      glVertex3d(0.0,-40.059,433.9725)
+      glVertex3d(0.0,-89.02,46.7355)
+      glVertex3d(0.0,-115.726,195.844)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-89.02,46.7355)
+      glVertex3d(0.0,-193.6185,198.0695)
+      glVertex3d(0.0,-115.726,195.844)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-289.315,422.845)
+      glVertex3d(0.0,-195.844,422.845)
+      glVertex3d(0.0,-193.6185,198.0695)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,-0.0)
+      glVertex3d(0.0,-193.6185,198.0695)
+      glVertex3d(0.0,-275.962,53.412)
+      glVertex3d(0.0,-289.315,422.845)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-193.6185,198.0695)
+      glVertex3d(0.0,-89.02,46.7355)
+      glVertex3d(0.0,-275.962,53.412)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,42.2845,-189.1675)
+      glVertex3d(0.0,-269.2855,-48.961)
+      glVertex3d(0.0,135.7555,-62.314)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,-0.0,0.0)
+      glVertex3d(0.0,153.5595,-362.7565)
+      glVertex3d(0.0,42.2845,-311.57)
+      glVertex3d(0.0,42.2845,-189.1675)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,42.2845,-189.1675)
+      glVertex3d(0.0,135.7555,-62.314)
+      glVertex3d(0.0,153.5595,-362.7565)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,-0.0)
+      glVertex3d(0.0,153.5595,-362.7565)
+      glVertex3d(0.0,46.7355,-449.551)
+      glVertex3d(0.0,42.2845,-311.57)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,-0.0,-0.0)
+      glVertex3d(0.0,42.2845,-189.1675)
+      glVertex3d(0.0,-153.5595,-182.491)
+      glVertex3d(0.0,-269.2855,-48.961)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,-0.0)
+      glVertex3d(0.0,-153.5595,-182.491)
+      glVertex3d(0.0,-247.0305,-333.825)
+      glVertex3d(0.0,-269.2855,-48.961)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-153.5595,-182.491)
+      glVertex3d(0.0,-144.6575,-302.668)
+      glVertex3d(0.0,-247.0305,-333.825)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-144.6575,-302.668)
+      glVertex3d(0.0,-137.981,-442.8745)
+      glVertex3d(0.0,-247.0305,-333.825)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-144.6575,-302.668)
+      glVertex3d(0.0,-42.2845,-358.3055)
+      glVertex3d(0.0,-137.981,-442.8745)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-42.2845,-358.3055)
+      glVertex3d(0.0,42.2845,-311.57)
+      glVertex3d(0.0,46.7355,-449.551)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,-0.0)
+      glVertex3d(0.0,46.7355,-449.551)
+      glVertex3d(0.0,-40.059,-474.0315)
+      glVertex3d(0.0,-42.2845,-358.3055)
+    glEnd()
+    glBegin(GL_POLYGON)
+      color(0.275,0.275,0.275,1.0)
+      glNormal3d(1.0,0.0,0.0)
+      glVertex3d(0.0,-42.2845,-358.3055)
+      glVertex3d(0.0,-40.059,-474.0315)
+      glVertex3d(0.0,-137.981,-442.8745)
+    glEnd()
+    glPopMatrix() 
+
+  }
+  /**
+   * タイトル終了→ゲーム開始
+   */
+  def Game_title_end(game:*Game) {
+    game->cnt++
+    if(game->cnt > 60) {
+      game->move = Game_init
+    }
+  }
+
+  /**
+   * デモ画面
+   * 決まったランダムシードと、キー入力ヒストリで再生して死ぬ
+   * 死んだら、ランキング表示へ
+   */
+  def Game_demo(game:*Game) {
+  }
+  /**
+   * ランキング表示
+   */
+  def Game_ranking(game:*Game) {
+  }
+
+  def Game_init(game:*Game) {
+    game->score = 0
+    game->num = 3
+    game->stage = 1
+    game->cnt = 0
+    game->move = Game_stageStart
+    game->draw = Game_game_draw
+    game->move(game)
+  }
+
+  /**
+   * ステージ開始処理
+   */
+  def Game_stageStart(game:*Game) {
+    // ステージ名表示
+    if(game->cnt > 60*4) {
+      // ステージ名表示を終了させて通常モードに移行する
+      game->move = Game_game
+    }
+    Game_game(game) //通常処理も行う
+  }
+  /**
+   * 通常ゲームモード
+   * ステージからのメッセージ待ちと言っていいのかな。
+   * スクロールしたり、点数加算したりする。
+   */
+  def Game_game(game:*Game) {
+    if(game->cnt % 4 == 3) game->score += 10
+    game->cnt++
+  
+    Ship_move()
+  }
+  def Game_game_draw() {
+    Ship_draw()
+  }
+  /**
+   * ダメージ受けたときの処理、点数加算を止め、やられたアニメーション後、残機ゼロならカウントダウンして
+   * 時間無くなればゲームオーバー
+   */
+  def Game_damage(game:*Game) {
+  }
+  /**
+   * ボス倒し待ち？このへんはステージタスクの役割？
+   */
+  def Game_boss(game:*Game) {
+  }
+  /**
+   * ボス倒したら次のステージに行くのでその処理
+   */
+  def Game_nextStage(game:*Game) {
+    game->stage++
+    game->move = Game_stageStart
+  }
+
+  /**
+   * コンティニュー表示
+   */
+  def Game_continue(game:*Game) {
+  }
+  /**
+   * イニシャル入力
+   */
+  def Game_nameEntry(game:*Game) {
+  }
+  /**
+   * エンディング
+   */
+  def Game_ending(game:*Game) {
+  }
+// }
+
+// Key {
+  typedef Key = struct {
+    up:int
+    down:int
+    left:int
+    right:int
+    space:int
+  }
+  var key:Key
+
+  def downKey(k:byte, x:int, y:int) {
+    k is {
+      GLUT_KEY_UP? key.up = 1 break
+      GLUT_KEY_DOWN? key.down = 1 break
+      GLUT_KEY_LEFT? key.left = 1 break
+      GLUT_KEY_RIGHT? key.right = 1 break
+      GLUT_KEY_SPACE? key.space = 1 break
+    }
+  }
+  def upKey(k:byte, x:int, y:int) {
+    k is {
+      GLUT_KEY_UP? key.up = 0 break
+      GLUT_KEY_DOWN? key.down = 0 break
+      GLUT_KEY_LEFT? key.left = 0 break
+      GLUT_KEY_RIGHT? key.right = 0 break
+      GLUT_KEY_SPACE? key.space = 0 break
+      27? glutLeaveGameMode() exit(0) break
+    }
+  }
+
+// }
+
+// Ship {
+  typedef Ship = struct {
+    x:double
+    y:double
+  }
+  var ship:Ship
+  def Ship_move() {
+    var speed = 10.0
+    if(key.left) ship.x -= speed
+    if(key.right) ship.x += speed
+    if(key.up) ship.y += speed
+    if(key.down) ship.y -= speed
+    var b = 300.0
+    var c = 240.0
+    if(ship.x > 300) ship.x = 300.0
+    if(ship.x < -300) ship.x = -300.0
+    if(ship.y > 240) ship.y = 240.0
+    if(ship.y < -240.0) ship.y = -240.0
+  }
+  
+  def Ship_draw() {
+    glPushMatrix() 
+    glTranslated(ship.x, ship.y, 0.0)
+
+    var x = 15.0
+    var y = 30.0
+    glBegin(GL_POLYGON)
+      color(1.0,0.275,0.275,1.0)
+      glNormal3d(0.0,0.0,1.0)
+      glVertex3d(-x,y,0.0)
+      glVertex3d(x,y,0.0)
+      glVertex3d(x,-y,0.0)
+      glVertex3d(-x,-y,0.0)
+    glEnd()
+    glPopMatrix() 
+  }
+
+//}
+
+// Stage {
+  typedef Stage = struct {
+    move:(*Stage)=>void
+    cnt:int
+  }
+
+  def Stage_init(stg:*Stage) {
+    game.stage is {
+      1? stg->move = Stage_1 break
+      2? stg->move = Stage_2 break
+      3? stg->move = Stage_3 break
+      4? stg->move = Stage_4 break
+      5? stg->move = Stage_5 break
+      6? stg->move = Stage_6 break
+      7? stg->move = Stage_7 break
+      8? stg->move = Stage_8 break
+      9? stg->move = Stage_9 break
+      10? stg->move = Stage_10 break
+      11? stg->move = Stage_11 break
+      12? stg->move = Stage_12 break
+      13? stg->move = Stage_13 break
+      14? stg->move = Stage_14 break
+      15? stg->move = Stage_15 break
+      16? stg->move = Stage_16 break
+      17? stg->move = Stage_17 break
+      18? stg->move = Stage_18 break
+      19? stg->move = Stage_ending break
+    }
+  }
+  def ptn7(){}
+  def ptn1(){}
+  def ptn2r(){}
+  def ptn2c(){}
+  def ptn2l(){}
+  def ptn3r(){}
+  def ptn3l(){}
+  def tmsu(){}
+  def tmsl(){}
+  def tmsr(){}
+  def boss1(){}
+  def ptn_hatena(){}
+  def ptn4l(){}
+  def ptn4r(){}
+
+  /**
+   * ステージ1
+   */
+  def Stage_1(stg:*Stage) {
+    // 背景
+    // 色設定
+    // 画像読み込み
+    // 後、、、何？
+    stg->cnt is {
+      // 55 21フレーム m 6体
+      // 左上、右上、左下前
+      // 画面中央よりやや左から加速
+      (60-55)*60? ptn7(); break;
+      5*60+4? ptn1() break;
+      (60-55)*60+4*2? ptn1() break;
+      (60-55)*60+4*3? ptn1() break;
+      (60-55)*60+4*4? ptn1() break;
+      (60-55)*60+4*5? ptn1() break;
+
+      // 49 右、真、左　奥から３体m
+      (60-49)*60? ptn2r() break;
+      (60-49)*60+5*1? ptn2c() break;
+      (60-49)*60+5*2? ptn2l() break;
+      // 42 右手前から4m 左奥にいくやや手前で弾
+      (60-42)*60? ptn3r() break;
+      (60-42)*60+4*1? ptn3r() break;
+      (60-42)*60+4*2? ptn3r() break;
+      (60-42)*60+4*3? ptn3r() break;
+      // 40 左手前から4m
+      (60-40)*60? ptn3l() break;
+      (60-40)*60+4*1? ptn3l() break;
+      (60-40)*60+4*2? ptn3l() break;
+      (60-40)*60+4*3? ptn3l() break;
+      // 34.5 T 32 ３つに分かれ開き始める31開く30ぴったりでとじる29あく
+      (600-345)*6? tmsu() tmsl() tmsr() break;
+      
+      // 25 左下手前からm　真ん中から左上奥、 右下へ
+      (60-25)*60? ptn_hatena() break;
+      
+      // 18 左と右から３たいずつm
+      (60-18)*60? ptn4l() ptn4r() break;
+      (60-18)*60+5*1? ptn4l() ptn4r() break;
+      (60-18)*60+5*2? ptn4l() ptn4r() break;
+
+      // 11 t
+      (60-11)*60? tmsu() tmsl() tmsr()  break;
+      // 1 ボス出現
+      (60-1)*60? boss1() break;
+    }
+  }
+  def Stage_2(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_3(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_4(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_5(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_6(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_7(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_8(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_9(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_10(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_11(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_12(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_13(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_14(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_15(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_16(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_17(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_18(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+  def Stage_ending(stg:*Stage) {
+    stg->cnt is {
+    }
+  }
+// }

@@ -1,0 +1,1655 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>type7 - type7</title>
+          <meta name="description" content="type7 - type7" />
+          <meta name="keywords" content="type7 type7" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../lib/template.js"></script>
+      <script type="text/javascript" src="../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../index.html';
+            var hash = 'type7.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../lib/package_big.png" />
+        
+        <h1>type7</h1>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">type7</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="type7.Dbl" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="DblextendsTokenwithProductwithSerializable"></a>
+      <a id="Dbl:Dbl"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Dbl.html"><span class="name">Dbl</span></a><span class="params">(<span name="a">a: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result"> extends <a href="Token.html" class="extype" name="type7.Token">Token</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.E" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="EextendsPositional"></a>
+      <a id="E:E"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="E.html"><span class="name">E</span></a><span class="result"> extends <span class="extype" name="scala.util.parsing.input.Positional">Positional</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">抽象構文木
+</p>
+    </li><li name="type7.EArray" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EArrayextendsEwithProductwithSerializable"></a>
+      <a id="EArray:EArray"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EArray.html"><span class="name">EArray</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="idx">idx: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">配列</p>
+    </li><li name="type7.EArrow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EArrowextendsEwithProductwithSerializable"></a>
+      <a id="EArrow:EArrow"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EArrow.html"><span class="name">EArrow</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="t2">t2: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">アロー演算子</p>
+    </li><li name="type7.EAssign" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EAssignextendsEwithProductwithSerializable"></a>
+      <a id="EAssign:EAssign"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EAssign.html"><span class="name">EAssign</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="b">b: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">代入</p>
+    </li><li name="type7.EBin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EBinextendsEwithProductwithSerializable"></a>
+      <a id="EBin:EBin"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EBin.html"><span class="name">EBin</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="it">it: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="b">b: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">二項演算子</p>
+    </li><li name="type7.EBlock" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EBlockextendsEwithProductwithSerializable"></a>
+      <a id="EBlock:EBlock"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EBlock.html"><span class="name">EBlock</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="b">b: <span class="extype" name="scala.List">List</span>[<a href="E.html" class="extype" name="type7.E">E</a>]</span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ブロック構文</p>
+    </li><li name="type7.EBreak" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EBreakextendsEwithProductwithSerializable"></a>
+      <a id="EBreak:EBreak"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EBreak.html"><span class="name">EBreak</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">break</p>
+    </li><li name="type7.ECall" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ECallextendsEwithProductwithSerializable"></a>
+      <a id="ECall:ECall"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ECall.html"><span class="name">ECall</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="f">f: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="ps">ps: <span class="extype" name="scala.List">List</span>[<a href="E.html" class="extype" name="type7.E">E</a>]</span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">関数呼び出し</p>
+    </li><li name="type7.ECase" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ECaseextendsEwithProductwithSerializable"></a>
+      <a id="ECase:ECase"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ECase.html"><span class="name">ECase</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="e">e: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ケース</p>
+    </li><li name="type7.ECast" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ECastextendsEwithProductwithSerializable"></a>
+      <a id="ECast:ECast"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ECast.html"><span class="name">ECast</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">キャスト</p>
+    </li><li name="type7.EContinue" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EContinueextendsEwithProductwithSerializable"></a>
+      <a id="EContinue:EContinue"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EContinue.html"><span class="name">EContinue</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">continue</p>
+    </li><li name="type7.EDo" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EDoextendsEwithProductwithSerializable"></a>
+      <a id="EDo:EDo"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EDo.html"><span class="name">EDo</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="s">s: <span class="extype" name="scala.List">List</span>[<a href="E.html" class="extype" name="type7.E">E</a>]</span>, <span name="e">e: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">do while 文</p>
+    </li><li name="type7.EField" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EFieldextendsEwithProductwithSerializable"></a>
+      <a id="EField:EField"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EField.html"><span class="name">EField</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="t2">t2: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">構造体のフィールド参照</p>
+    </li><li name="type7.EFor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EForextendsEwithProductwithSerializable"></a>
+      <a id="EFor:EFor"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EFor.html"><span class="name">EFor</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="c">c: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="n">n: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="s">s: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">for文</p>
+    </li><li name="type7.EFun" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EFunextendsEwithProductwithSerializable"></a>
+      <a id="EFun:EFun"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EFun.html"><span class="name">EFun</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="prms">prms: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="T.html" class="extype" name="type7.T">T</a>]</span>, <span name="body">body: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">関数</p>
+    </li><li name="type7.EGCNew" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EGCNewextendsEwithProductwithSerializable"></a>
+      <a id="EGCNew:EGCNew"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EGCNew.html"><span class="name">EGCNew</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">GC付きの変数の割り当て</p>
+    </li><li name="type7.EGoto" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EGotoextendsEwithProductwithSerializable"></a>
+      <a id="EGoto:EGoto"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EGoto.html"><span class="name">EGoto</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ジャンプ</p>
+    </li><li name="type7.EId" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EIdextendsEwithProductwithSerializable"></a>
+      <a id="EId:EId"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EId.html"><span class="name">EId</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">変数の参照</p>
+    </li><li name="type7.EIf" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EIfextendsEwithProductwithSerializable"></a>
+      <a id="EIf:EIf"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EIf.html"><span class="name">EIf</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="e">e: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="b">b: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">if 式</p>
+    </li><li name="type7.ELabel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELabelextendsEwithProductwithSerializable"></a>
+      <a id="ELabel:ELabel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ELabel.html"><span class="name">ELabel</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="e">e: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ラベル</p>
+    </li><li name="type7.ELd" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELdextendsEwithProductwithSerializable"></a>
+      <a id="ELd:ELd"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ELd.html"><span class="name">ELd</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">整数定数ロード</p>
+    </li><li name="type7.ELdd" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELddextendsEwithProductwithSerializable"></a>
+      <a id="ELdd:ELdd"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ELdd.html"><span class="name">ELdd</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Double">Double</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">浮動小数点数定数ロード</p>
+    </li><li name="type7.ELds" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELdsextendsEwithProductwithSerializable"></a>
+      <a id="ELds:ELds"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ELds.html"><span class="name">ELds</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">文字列定数ロード</p>
+    </li><li name="type7.ENeg" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENegextendsEwithProductwithSerializable"></a>
+      <a id="ENeg:ENeg"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ENeg.html"><span class="name">ENeg</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">-単項演算子</p>
+    </li><li name="type7.ENew" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENewextendsEwithProductwithSerializable"></a>
+      <a id="ENew:ENew"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ENew.html"><span class="name">ENew</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ヒープから割り当て</p>
+    </li><li name="type7.ENewArray" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENewArrayextendsEwithProductwithSerializable"></a>
+      <a id="ENewArray:ENewArray"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ENewArray.html"><span class="name">ENewArray</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">配列割り当て</p>
+    </li><li name="type7.ENop" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENopextendsEwithProductwithSerializable"></a>
+      <a id="ENop:ENop"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ENop.html"><span class="name">ENop</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">コメント</p>
+    </li><li name="type7.ENot" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENotextendsEwithProductwithSerializable"></a>
+      <a id="ENot:ENot"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ENot.html"><span class="name">ENot</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">!演算子</p>
+    </li><li name="type7.EOp" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EOpextendsObject"></a>
+      <a id="EOp:EOp"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="EOp.html"><span class="name">EOp</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">二項演算子の構築用
+</p>
+    </li><li name="type7.EOpc" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EOpcextendsObject"></a>
+      <a id="EOpc:EOpc"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="EOpc.html"><span class="name">EOpc</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">比較演算子の構築
+</p>
+    </li><li name="type7.EPtr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EPtrextendsEwithProductwithSerializable"></a>
+      <a id="EPtr:EPtr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EPtr.html"><span class="name">EPtr</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ポインタ値参照</p>
+    </li><li name="type7.ERef" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ERefextendsEwithProductwithSerializable"></a>
+      <a id="ERef:ERef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ERef.html"><span class="name">ERef</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ポインタ値取得</p>
+    </li><li name="type7.ERet" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ERetextendsEwithProductwithSerializable"></a>
+      <a id="ERet:ERet"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ERet.html"><span class="name">ERet</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">リターン</p>
+    </li><li name="type7.ESizeOf" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ESizeOfextendsEwithProductwithSerializable"></a>
+      <a id="ESizeOf:ESizeOf"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ESizeOf.html"><span class="name">ESizeOf</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="t2">t2: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">サイズ取得</p>
+    </li><li name="type7.ESwitch" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ESwitchextendsEwithProductwithSerializable"></a>
+      <a id="ESwitch:ESwitch"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ESwitch.html"><span class="name">ESwitch</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="i">i: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="ls">ls: <span class="extype" name="scala.List">List</span>[(<a href="E.html" class="extype" name="type7.E">E</a>, <a href="E.html" class="extype" name="type7.E">E</a>)]</span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">switch文</p>
+    </li><li name="type7.ETuple" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ETupleextendsEwithProductwithSerializable"></a>
+      <a id="ETuple:ETuple"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ETuple.html"><span class="name">ETuple</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="a">a: <span class="extype" name="scala.List">List</span>[<a href="E.html" class="extype" name="type7.E">E</a>]</span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">多値</p>
+    </li><li name="type7.ETypeDef" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ETypeDefextendsEwithProductwithSerializable"></a>
+      <a id="ETypeDef:ETypeDef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ETypeDef.html"><span class="name">ETypeDef</span></a><span class="params">(<span name="t1">t1: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">型定義</p>
+    </li><li name="type7.EVar" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EVarextendsEwithProductwithSerializable"></a>
+      <a id="EVar:EVar"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EVar.html"><span class="name">EVar</span></a><span class="params">(<span name="t1">t1: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="i">i: <a href="E.html" class="extype" name="type7.E">E</a> = <span class="symbol">null</span></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">変数定義</p>
+    </li><li name="type7.EWhile" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EWhileextendsEwithProductwithSerializable"></a>
+      <a id="EWhile:EWhile"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="EWhile.html"><span class="name">EWhile</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="e">e: <a href="E.html" class="extype" name="type7.E">E</a></span>, <span name="s">s: <a href="E.html" class="extype" name="type7.E">E</a></span>)</span><span class="result"> extends <a href="E.html" class="extype" name="type7.E">E</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">while 文</p>
+    </li><li name="type7.Id" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="IdextendsTokenwithProductwithSerializable"></a>
+      <a id="Id:Id"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Id.html"><span class="name">Id</span></a><span class="params">(<span name="a">a: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Token.html" class="extype" name="type7.Token">Token</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.LL" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="LLextendsObject"></a>
+      <a id="LL:LL"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="LL.html"><span class="name">LL</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">LLVM命令
+</p>
+    </li><li name="type7.LLAlloca" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLAllocaextendsLLwithProductwithSerializable"></a>
+      <a id="LLAlloca:LLAlloca"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLAlloca.html"><span class="name">LLAlloca</span></a><span class="params">(<span name="a">a: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">スタック上のメモリ確保</p>
+    </li><li name="type7.LLAssign" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLAssignextendsLLwithProductwithSerializable"></a>
+      <a id="LLAssign:LLAssign"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLAssign.html"><span class="name">LLAssign</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">代入演算子疑似命令</p>
+    </li><li name="type7.LLBin" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLBinextendsLLwithProductwithSerializable"></a>
+      <a id="LLBin:LLBin"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLBin.html"><span class="name">LLBin</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="op">op: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="a">a: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">二項演算子</p>
+    </li><li name="type7.LLCall" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLCallextendsLLwithProductwithSerializable"></a>
+      <a id="LLCall:LLCall"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLCall.html"><span class="name">LLCall</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="op">op: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="prms">prms: <span class="extype" name="scala.List">List</span>[<a href="R.html" class="extype" name="type7.R">R</a>]</span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">関数コール</p>
+    </li><li name="type7.LLCast" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLCastextendsLLwithProductwithSerializable"></a>
+      <a id="LLCast:LLCast"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLCast.html"><span class="name">LLCast</span></a><span class="params">(<span name="a">a: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">キャスト全般疑似命令</p>
+    </li><li name="type7.LLField" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLFieldextendsLLwithProductwithSerializable"></a>
+      <a id="LLField:LLField"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLField.html"><span class="name">LLField</span></a><span class="params">(<span name="id1">id1: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="aid">aid: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="z">z: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">フィールドアクセス疑似命令</p>
+    </li><li name="type7.LLFun" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLFunextendsLLwithProductwithSerializable"></a>
+      <a id="LLFun:LLFun"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLFun.html"><span class="name">LLFun</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="n">n: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="p">p: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="T.html" class="extype" name="type7.T">T</a>]</span>, <span name="env">env: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="T.html" class="extype" name="type7.T">T</a>]</span>, <span name="ls">ls: <span class="extype" name="scala.collection.mutable.ArrayBuffer">ArrayBuffer</span>[<a href="LL.html" class="extype" name="type7.LL">LL</a>]</span>, <span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">関数</p>
+    </li><li name="type7.LLGlobal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLGlobalextendsLLwithProductwithSerializable"></a>
+      <a id="LLGlobal:LLGlobal"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLGlobal.html"><span class="name">LLGlobal</span></a><span class="params">(<span name="id">id: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="e">e: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">グローバル変数</p>
+    </li><li name="type7.LLGoto" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLGotoextendsLLwithProductwithSerializable"></a>
+      <a id="LLGoto:LLGoto"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLGoto.html"><span class="name">LLGoto</span></a><span class="params">(<span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="jmp">jmp: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ジャンプ命令</p>
+    </li><li name="type7.LLJne" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLJneextendsLLwithProductwithSerializable"></a>
+      <a id="LLJne:LLJne"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLJne.html"><span class="name">LLJne</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="jmp1">jmp1: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="jmp2">jmp2: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">条件分岐</p>
+    </li><li name="type7.LLLabel" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLLabelextendsLLwithProductwithSerializable"></a>
+      <a id="LLLabel:LLLabel"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLLabel.html"><span class="name">LLLabel</span></a><span class="params">(<span name="jmp">jmp: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ラベル命令</p>
+    </li><li name="type7.LLLoad" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLLoadextendsLLwithProductwithSerializable"></a>
+      <a id="LLLoad:LLLoad"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLLoad.html"><span class="name">LLLoad</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">値読込</p>
+    </li><li name="type7.LLLoadCStr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLLoadCStrextendsLLwithProductwithSerializable"></a>
+      <a id="LLLoadCStr:LLLoadCStr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLLoadCStr.html"><span class="name">LLLoadCStr</span></a><span class="params">(<span name="reg">reg: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="i">i: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">文字列疑似命令　ローカルに書けるような感じにしてありますが、emitで、関数の外に文字列定数を出力し参照します。</p>
+    </li><li name="type7.LLNop" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLNopextendsLLwithProductwithSerializable"></a>
+      <a id="LLNop:LLNop"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLNop.html"><span class="name">LLNop</span></a><span class="params">(<span name="s">s: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">コメント</p>
+    </li><li name="type7.LLPhi" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLPhiextendsLLwithProductwithSerializable"></a>
+      <a id="LLPhi:LLPhi"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLPhi.html"><span class="name">LLPhi</span></a><span class="params">(<span name="reg">reg: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="l1">l1: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="l2">l2: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="r1">r1: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="r2">r2: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">SSA最適化のφ(ファイ) 複数基本ブロックの変数を１つに合流させる</p>
+    </li><li name="type7.LLStore" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLStoreextendsLLwithProductwithSerializable"></a>
+      <a id="LLStore:LLStore"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLStore.html"><span class="name">LLStore</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="b">b: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">値設定</p>
+    </li><li name="type7.LLSwitch" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLSwitchextendsLLwithProductwithSerializable"></a>
+      <a id="LLSwitch:LLSwitch"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLSwitch.html"><span class="name">LLSwitch</span></a><span class="params">(<span name="reg">reg: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="label">label: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="cases">cases: <span class="extype" name="scala.List">List</span>[(<a href="R.html" class="extype" name="type7.R">R</a>, <span class="extype" name="scala.Predef.String">String</span>)]</span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">テーブルジャンプ命令</p>
+    </li><li name="type7.LLUnary" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LLUnaryextendsLLwithProductwithSerializable"></a>
+      <a id="LLUnary:LLUnary"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LLUnary.html"><span class="name">LLUnary</span></a><span class="params">(<span name="r">r: <a href="R.html" class="extype" name="type7.R">R</a></span>, <span name="op">op: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="a">a: <a href="R.html" class="extype" name="type7.R">R</a></span>)</span><span class="result"> extends <a href="LL.html" class="extype" name="type7.LL">LL</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">単項演算子</p>
+    </li><li name="type7.Lng" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LngextendsTokenwithProductwithSerializable"></a>
+      <a id="Lng:Lng"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Lng.html"><span class="name">Lng</span></a><span class="params">(<span name="a">a: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result"> extends <a href="Token.html" class="extype" name="type7.Token">Token</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.Prog" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ProgextendsProductwithSerializable"></a>
+      <a id="Prog:Prog"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Prog.html"><span class="name">Prog</span></a><span class="params">(<span name="b">b: <span class="extype" name="scala.List">List</span>[<a href="E.html" class="extype" name="type7.E">E</a>]</span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">抽象構文木のルート
+</p>
+    </li><li name="type7.R" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="RextendsObject"></a>
+      <a id="R:R"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="R.html"><span class="name">R</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">LLVM変数
+</p>
+    </li><li name="type7.RG" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RGextendsRwithProductwithSerializable"></a>
+      <a id="RG:RG"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RG.html"><span class="name">RG</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="R.html" class="extype" name="type7.R">R</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">グローバル変数</p>
+    </li><li name="type7.RL" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RLextendsRwithProductwithSerializable"></a>
+      <a id="RL:RL"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RL.html"><span class="name">RL</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="R.html" class="extype" name="type7.R">R</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ローカル変数</p>
+    </li><li name="type7.RN" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RNextendsRwithProductwithSerializable"></a>
+      <a id="RN:RN"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RN.html"><span class="name">RN</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="R.html" class="extype" name="type7.R">R</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">数値変数</p>
+    </li><li name="type7.RR" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="RRextendsRwithProductwithSerializable"></a>
+      <a id="RR:RR"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="RR.html"><span class="name">RR</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="R.html" class="extype" name="type7.R">R</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">レジスタ変数</p>
+    </li><li name="type7.Str" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="StrextendsTokenwithProductwithSerializable"></a>
+      <a id="Str:Str"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Str.html"><span class="name">Str</span></a><span class="params">(<span name="a">a: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Token.html" class="extype" name="type7.Token">Token</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.Sym" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="SymextendsTokenwithProductwithSerializable"></a>
+      <a id="Sym:Sym"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Sym.html"><span class="name">Sym</span></a><span class="params">(<span name="a">a: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="Token.html" class="extype" name="type7.Token">Token</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.T" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="TextendsPositional"></a>
+      <a id="T:T"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="T.html"><span class="name">T</span></a><span class="result"> extends <span class="extype" name="scala.util.parsing.input.Positional">Positional</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">型
+</p>
+    </li><li name="type7.TArr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TArrextendsTwithProductwithSerializable"></a>
+      <a id="TArr:TArr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TArr.html"><span class="name">TArr</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="size">size: <span class="extype" name="scala.Long">Long</span></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">配列型</p>
+    </li><li name="type7.TDef" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TDefextendsTwithProductwithSerializable"></a>
+      <a id="TDef:TDef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TDef.html"><span class="name">TDef</span></a><span class="params">(<span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">型定義</p>
+    </li><li name="type7.TFun" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TFunextendsTwithProductwithSerializable"></a>
+      <a id="TFun:TFun"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TFun.html"><span class="name">TFun</span></a><span class="params">(<span name="rc">rc: <a href="T.html" class="extype" name="type7.T">T</a></span>, <span name="prms">prms: <span class="extype" name="scala.List">List</span>[<a href="T.html" class="extype" name="type7.T">T</a>]</span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">関数型</p>
+    </li><li name="type7.TStr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TStrextendsTwithProductwithSerializable"></a>
+      <a id="TStr:TStr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TStr.html"><span class="name">TStr</span></a><span class="params">(<span name="members">members: <span class="extype" name="scala.collection.immutable.ListMap">ListMap</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="T.html" class="extype" name="type7.T">T</a>]</span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">構造体型</p>
+    </li><li name="type7.Ti" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TiextendsTwithProductwithSerializable"></a>
+      <a id="Ti:Ti"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Ti.html"><span class="name">Ti</span></a><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">符号付き整数型</p>
+    </li><li name="type7.Token" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="TokenextendsPositional"></a>
+      <a id="Token:Token"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Token.html"><span class="name">Token</span></a><span class="result"> extends <span class="extype" name="scala.util.parsing.input.Positional">Positional</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.Tp" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TpextendsTwithProductwithSerializable"></a>
+      <a id="Tp:Tp"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Tp.html"><span class="name">Tp</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">ポインタ型</p>
+    </li><li name="type7.Tr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TrextendsTwithProductwithSerializable"></a>
+      <a id="Tr:Tr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Tr.html"><span class="name">Tr</span></a><span class="params">(<span name="t">t: <a href="T.html" class="extype" name="type7.T">T</a></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">リターン値型</p>
+    </li><li name="type7.Tu" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TuextendsTwithProductwithSerializable"></a>
+      <a id="Tu:Tu"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="Tu.html"><span class="name">Tu</span></a><span class="params">(<span name="i">i: <span class="extype" name="scala.Int">Int</span></span>)</span><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">符号無し整数型</p>
+    </li><li name="type7.TypeError" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TypeErrorextendsExceptionwithProductwithSerializable"></a>
+      <a id="TypeError:TypeError"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TypeError.html"><span class="name">TypeError</span></a><span class="params">(<span name="p">p: <span class="extype" name="scala.util.parsing.input.Position">Position</span></span>, <span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="java.lang.Exception">Exception</span> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      
+    </li><li name="type7.constFold" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="constFoldextendsObject"></a>
+      <a id="constFold:constFold"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="constFold.html"><span class="name">constFold</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">定数畳み込みクラス</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="type7.EAdd" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EAdd"></a>
+      <a id="EAdd:EAdd"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EAdd$.html"><span class="name">EAdd</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">加算</p>
+    </li><li name="type7.EAnd" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EAnd"></a>
+      <a id="EAnd:EAnd"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EAnd$.html"><span class="name">EAnd</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">論理積</p>
+    </li><li name="type7.EDiv" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EDiv"></a>
+      <a id="EDiv:EDiv"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EDiv$.html"><span class="name">EDiv</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">割算</p>
+    </li><li name="type7.EEq" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EEq"></a>
+      <a id="EEq:EEq"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EEq$.html"><span class="name">EEq</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt"><code>==</code>比較演算子</p>
+    </li><li name="type7.EGe" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EGe"></a>
+      <a id="EGe:EGe"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EGe$.html"><span class="name">EGe</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">&lt;=比較演算子</p>
+    </li><li name="type7.EGt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EGt"></a>
+      <a id="EGt:EGt"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EGt$.html"><span class="name">EGt</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">&lt;比較演算子</p>
+    </li><li name="type7.ELe" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELe"></a>
+      <a id="ELe:ELe"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ELe$.html"><span class="name">ELe</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">&lt;=比較演算子</&lt;</p>
+    </li><li name="type7.ELt" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ELt"></a>
+      <a id="ELt:ELt"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ELt$.html"><span class="name">ELt</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">&gt;比較演算子</p>
+    </li><li name="type7.EMod" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EMod"></a>
+      <a id="EMod:EMod"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EMod$.html"><span class="name">EMod</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">剰余</p>
+    </li><li name="type7.EMul" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EMul"></a>
+      <a id="EMul:EMul"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EMul$.html"><span class="name">EMul</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">乗算</p>
+    </li><li name="type7.ENe" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ENe"></a>
+      <a id="ENe:ENe"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ENe$.html"><span class="name">ENe</span></a><span class="result"> extends <a href="EOpc.html" class="extype" name="type7.EOpc">EOpc</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">!=比較演算子</p>
+    </li><li name="type7.EOr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EOr"></a>
+      <a id="EOr:EOr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EOr$.html"><span class="name">EOr</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">論理和</p>
+    </li><li name="type7.EPrint" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EPrint"></a>
+      <a id="EPrint:EPrint"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EPrint$.html"><span class="name">EPrint</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">プリント関数の呼び出し
+</p>
+    </li><li name="type7.EShl" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EShl"></a>
+      <a id="EShl:EShl"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EShl$.html"><span class="name">EShl</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">左シフト</p>
+    </li><li name="type7.EShr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EShr"></a>
+      <a id="EShr:EShr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EShr$.html"><span class="name">EShr</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">算術右シフト</p>
+    </li><li name="type7.ESub" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ESub"></a>
+      <a id="ESub:ESub"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ESub$.html"><span class="name">ESub</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">減算算</p>
+    </li><li name="type7.EUshr" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EUshr"></a>
+      <a id="EUshr:EUshr"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EUshr$.html"><span class="name">EUshr</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">右シフト</p>
+    </li><li name="type7.EXor" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="EXor"></a>
+      <a id="EXor:EXor"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="EXor$.html"><span class="name">EXor</span></a><span class="result"> extends <a href="EOp.html" class="extype" name="type7.EOp">EOp</a></span>
+      </span>
+      </h4>
+      <p class="comment cmt">排他的論理和</p>
+    </li><li name="type7.Td" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Td"></a>
+      <a id="Td:Td"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Td$.html"><span class="name">Td</span></a><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">倍精度浮動小数点数</p>
+    </li><li name="type7.Tf" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Tf"></a>
+      <a id="Tf:Tf"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Tf$.html"><span class="name">Tf</span></a><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">単精度浮動小数点数</p>
+    </li><li name="type7.Tn" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Tn"></a>
+      <a id="Tn:Tn"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Tn$.html"><span class="name">Tn</span></a><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">型未定義</p>
+    </li><li name="type7.Tv" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="Tv"></a>
+      <a id="Tv:Tv"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Tv$.html"><span class="name">Tv</span></a><span class="result"> extends <a href="T.html" class="extype" name="type7.T">T</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">void型</p>
+    </li><li name="type7.asm" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="asm"></a>
+      <a id="asm:asm"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="asm$.html"><span class="name">asm</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">アセンブラ出力用オブジェクト</p>
+    </li><li name="type7.compact" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="compact"></a>
+      <a id="compact:compact"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="compact$.html"><span class="name">compact</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">Compactパーサ</p>
+    </li><li name="type7.constFold" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="constFold"></a>
+      <a id="constFold:constFold"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="constFold$.html"><span class="name">constFold</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">定数畳み込み処理
+</p>
+    </li><li name="type7.env" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="env"></a>
+      <a id="env:env"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="env$.html"><span class="name">env</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">環境
+</p>
+    </li><li name="type7.exec" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="exec"></a>
+      <a id="exec:exec"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="exec$.html"><span class="name">exec</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">プロセス実行
+</p>
+    </li><li name="type7.genid" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="genid"></a>
+      <a id="genid:genid"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="genid$.html"><span class="name">genid</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">id生成
+</p>
+    </li><li name="type7.global_env" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="global_env"></a>
+      <a id="global_env:global_env"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="global_env$.html"><span class="name">global_env</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">グローバルな環境
+</p>
+    </li><li name="type7.kNormal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="kNormal"></a>
+      <a id="kNormal:kNormal"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="kNormal$.html"><span class="name">kNormal</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">k正規化処理</p>
+    </li><li name="type7.llemit" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="llemit"></a>
+      <a id="llemit:llemit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="llemit$.html"><span class="name">llemit</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">LLVMコードジェネレータ
+</p>
+    </li><li name="type7.main" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="main"></a>
+      <a id="main:main"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="main$.html"><span class="name">main</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">シンプルなメイン関数
+</p>
+    </li><li name="type7.main2" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="main2"></a>
+      <a id="main2:main2"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="main2$.html"><span class="name">main2</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">本格的なメイン関数
+</p>
+    </li><li name="type7.tName" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="tName"></a>
+      <a id="tName:tName"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="tName$.html"><span class="name">tName</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">1文字表現で型を文字列化します
+</p>
+    </li><li name="type7.transduce" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="transduce"></a>
+      <a id="transduce:transduce"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="transduce$.html"><span class="name">transduce</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">トランデューサ
+</p>
+    </li><li name="type7.ttos" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="ttos"></a>
+      <a id="ttos:ttos"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ttos$.html"><span class="name">ttos</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">ソースコード上の表現で型を文字列化します
+</p>
+    </li><li name="type7.typing" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="typing"></a>
+      <a id="typing:typing"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="typing$.html"><span class="name">typing</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">型チェック
+</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
