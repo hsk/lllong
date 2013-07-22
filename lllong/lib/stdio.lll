@@ -1,0 +1,7 @@
+def println(str:Ptr[char]):void
+def print_b(c:char):void
+def print_s(i:short):void
+def print_i(i:int):void
+def print_l(l:long):void
+def print_f(f:float):void
+def print_d(d:double):void

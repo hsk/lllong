@@ -1,0 +1,57 @@
+import program
+
+def glutInit(argc:Ptr[int], argv:Ptr[Ptr[char]]):void
+def glutInitDisplayMode(a:int):void
+def glutInitWindowSize(w:int,h:int):void
+def glutCreateWindow(argv:Ptr[char]):void
+def glutDisplayFunc(argv:()=>void):void
+def glutSwapBuffers():void
+def glutPostRedisplay():void
+def glutTimerFunc(msecs:int, f:(int)=>void, value:int):void
+def glutMainLoop():void
+def glEnable(mode:int):void
+def glDisable(mode:int):void
+def glutKeyboardFunc(f:(byte, int, int) => void):void
+def glutSpecialFunc(f:(byte, int, int) => void):void
+def glutSpecialUpFunc(f:(byte, int, int) => void):void
+def glutFullScreen():void
+def glutReshapeWindow(w:int,h:int):void
+def glLoadIdentity():void
+def glEnable(a:int):void
+def glClear(a:int):void
+def glFlush():void
+def glBegin(a:int):void
+def glEnd():void
+def glNormal3d(x:double, y:double, z:double):void
+def glColor3d(r:double, g:double, b:double):void
+def glColor4d(r:double, g:double, b:double, a:double):void
+def glVertex3d(x:double, y:double, z:double):void
+def glVertex2d(x:double, y:double):void
+def glPushMatrix():void
+def glPopMatrix():void
+def glTranslated(x:double, y:double, z:double):void
+def glRotated(a:double, b:double, c:double, d:double):void
+def glScaled(x:double, y:double, z:double):void
+
+
+def glViewport (x:int, y:int, width:int, height:int):void
+def glMatrixMode(mode:int):void
+def gluPerspective (fovy:double, aspect:double, zNear:double, zFar:double):void
+def gluLookAt (
+  eyeX:double, eyeY:double, eyeZ:double,
+  centerX:double, centerY:double, centerZ:double,
+  upX:double, upY:double, upZ:double):void
+def glBlendFunc (sfactor:int, dfactor:int):void
+def glutGameModeString (mode:Ptr[char]):void
+def glutEnterGameMode ():void
+def glutLeaveGameMode ():void
+def glLightfv (light:int, pname:int, params:Ptr[float]):void
+def glMaterialfv(a:int,b:int,c:Array[float,4]):void
+
+
+def color(r:float,g:float,b:float,a:float) {
+  var col = Array(r,g,b,a)
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, col)
+}
+
+def aaa():int = 3
