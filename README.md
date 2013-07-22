@@ -1,4 +1,4 @@
-# LLLong
+# LLLongコンパイラ
 
 ```
 def add(a:int,b:int):int = {
