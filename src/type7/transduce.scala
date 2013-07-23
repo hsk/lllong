@@ -145,6 +145,7 @@ object transduce {
       case (o @ Id("typedef"), (Id(a), Id("="), b)) => p(o, ETypeDef(t(b), a))
       case o @ Id("void") => p(o, ENop(Tv, "void"))
       case o @ Id("break") => p(o, EBreak(Tn))
+      case o @ Id("continue") => p(o, EContinue(Tn))
       case o @ Id(a) => p(o, EId(Tn, a))
       case (a, Id("("), b, Id(")")) =>
         val o = f(a); p(o, ECall(Tn, o, prms(b)))
@@ -239,7 +240,7 @@ object transduce {
         case Id("void") => m
       }
     }
-    ff(st, Map())
+    ff(st, ListMap())
   }
 
   /**
@@ -292,6 +293,7 @@ object transduce {
       case (o @ Id("struct"), Id("{"), b, Id("}")) => TStr(members(b, ListMap[String, T]()))
       case (Id("("), a, Id(")")) => t(a)
       case Id(s) => TDef(s)
+      case o => val t = findToken(o); throw TypeError(t.pos, "error syntax error " + t + " " + o)
     }
   }
 
@@ -317,6 +319,7 @@ object transduce {
       case (Id(a), Id(":"), b) => m + (a -> t(b))
       case (a, Id(";")) => members(a, m)
       case (a, Id("@"), b) => members(b, members(a, m))
+      case o => val t = findToken(o); throw TypeError(t.pos, "error syntax error " + t + " " + o)
     }
   }
 

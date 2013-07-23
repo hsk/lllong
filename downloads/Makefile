@@ -6,7 +6,7 @@ all: scala type7.jar
 	mkdir test
 	cd test;pwd;unzip ../$(ZIP)
 	cd test/sample;sh mk.sh;./program
-	rm -rf test
+	# rm -rf test
 type7.jar:
 	cp -rf ../lib .
 	cp -rf ../sample .

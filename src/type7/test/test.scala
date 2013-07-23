@@ -147,7 +147,7 @@ trait TestCase {
   import test._
   def main(argv: Array[String]) {
     val start = System.currentTimeMillis()
-    List[Mode](Parse,Compile_Emit).foreach {
+    List[Mode](Parse).foreach {
       m => mode = m; apply(); println("---- " + m + " test end")
     }
     val end = System.currentTimeMillis()

@@ -241,6 +241,8 @@ object kNormal {
         val l = genid("goto"); add(LLGoto(l, "Local._" + a)); null
       case EBreak(_) =>
         val (b :: bs) = breaks; val l = genid("break"); add(LLGoto(l, b)); null
+      case EContinue(_) =>
+        val (b :: bs) = continues; val l = genid("continue"); add(LLGoto(l, b)); null
       case EIf(t, a, b, c) =>
         val id0 = genid("ok")
         val (id1, l0) = (genid("else"), genid("else"))
@@ -512,7 +514,8 @@ object kNormal {
           case (name, t) :: xs => if (name == x) (t, s) else ck(xs, s + 1)
         }
         ck(m.toList, 0L)
-      case _ => throw new Exception("error")
+      case Tp(t) => getOffset(t, x)
+      case t => throw new Exception("error "+t)
     }
   }
 

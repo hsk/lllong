@@ -3,56 +3,6 @@
 %.struct3 = type { double, double }
 %.struct4 = type { void(%.struct4*)*, i32 }
 declare i32 @printf(i8*, ...) nounwind
-define void @color(float %r.v, float %g.v, float %b.v, float %a.v) nounwind ssp {
-entry:
-  %r = alloca float
-  store float %r.v, float* %r
-  %g = alloca float
-  store float %g.v, float* %g
-  %b = alloca float
-  store float %b.v, float* %b
-  %a = alloca float
-  store float %a.v, float* %a
-  %col = alloca [4 x float]
-  %..1792 = bitcast [4 x float]* %col to float*
-  %..1794 = load float* %r
-  %..1795 = bitcast float* %..1792 to float*
-  %..1796 = getelementptr inbounds float* %..1795, i32 0
-  store float %..1794, float* %..1796
-  %..1797 = bitcast [4 x float]* %col to float*
-  %..1799 = load float* %g
-  %..1800 = bitcast float* %..1797 to float*
-  %..1801 = getelementptr inbounds float* %..1800, i32 1
-  store float %..1799, float* %..1801
-  %..1802 = bitcast [4 x float]* %col to float*
-  %..1804 = load float* %b
-  %..1805 = bitcast float* %..1802 to float*
-  %..1806 = getelementptr inbounds float* %..1805, i32 2
-  store float %..1804, float* %..1806
-  %..1807 = bitcast [4 x float]* %col to float*
-  %..1809 = load float* %a
-  %..1810 = bitcast float* %..1807 to float*
-  %..1811 = getelementptr inbounds float* %..1810, i32 3
-  store float %..1809, float* %..1811
-  %..1813 = load i32* @GL_FRONT_AND_BACK
-  %..1814 = load i32* @GL_DIFFUSE
-  %..1815 = bitcast [4 x float]* %col to float*
-  call void @glMaterialfv(i32 %..1813, i32 %..1814, float* %..1815) nounwind ssp
-  br label %leave1791
-leave1791:
-  ret void
-}
-define i32 @aaa() nounwind ssp {
-entry:
-  %..retVal = alloca i32
-  br label %leave1816
-leave1816:
-  store i32 3, i32* %..retVal
-  br label %..leave
-..leave:
-  %..1818 = load i32* %..retVal
-  ret i32 %..1818
-}
 declare void @glutKeyboardFunc(void(i8, i32, i32)*) nounwind
 declare void @Stage_14(%.struct4*) nounwind
 declare void @Stage_15(%.struct4*) nounwind
@@ -112,6 +62,7 @@ declare void @Game_continue(%.struct1*) nounwind
 declare void @print_d(double) nounwind
 declare void @main(i32, i8**) nounwind
 @char = external global i8
+declare void @color(float, float, float, float) nounwind
 declare void @glutDisplayFunc(void()*) nounwind
 declare void @Stage_17(%.struct4*) nounwind
 declare void @println(i8*) nounwind

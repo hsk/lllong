@@ -58,7 +58,13 @@ def main(argc:int, argv:Ptr[Ptr[char]]) {
   Game_new(&game)
   glutMainLoop()
   print_i(33)
-  aaa()
+}
+
+
+
+def color(r:float,g:float,b:float,a:float) {
+  var col = Array(r,g,b,a)
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, col)
 }
 
 def main_loop(a:int) {

@@ -1,5 +1,3 @@
-import program
-
 def glutInit(argc:Ptr[int], argv:Ptr[Ptr[char]]):void
 def glutInitDisplayMode(a:int):void
 def glutInitWindowSize(w:int,h:int):void
@@ -47,11 +45,3 @@ def glutEnterGameMode ():void
 def glutLeaveGameMode ():void
 def glLightfv (light:int, pname:int, params:Ptr[float]):void
 def glMaterialfv(a:int,b:int,c:Array[float,4]):void
-
-
-def color(r:float,g:float,b:float,a:float) {
-  var col = Array(r,g,b,a)
-  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, col)
-}
-
-def aaa():int = 3

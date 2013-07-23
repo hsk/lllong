@@ -2,7 +2,7 @@ package type7.test
 import type7._
 import scala.collection.immutable.ListMap
 
-object test_struct {
+object test_struct extends TestCase {
   import test._
 
   def apply() {
@@ -149,6 +149,44 @@ object test_struct {
       (0, "12\n", "")
     )
 
+    test("構造体のポインタ演算",
+      "{" +
+      " typedef ABC = struct{x:int y:int} "+
+      " var a = new ABC" +
+      " a.x = 10" +
+      " print_i(a.x)" +
+      "}",
+      null,
+      (0, "10\n", "")
+    )
+
+    test("構造体のポインタ演算",
+      "{" +
+      " typedef ABC = struct{x:int y:int} "+
+      " var a = new ABC" +
+      " a.x = 10" +
+      " print_i(a->x)" +
+      "}",
+      null,
+      (0, "10\n", "")
+    )
+    
+    test("構造体のポインタ演算",
+      "{" +
+      " typedef ABC1 = struct{x:int y:int} "+
+      " typedef ABC = struct{x:int y:int z:Ptr[ABC1]} "+
+      " var a = new ABC" +
+      " a.x = 10" +
+      " a.z = new ABC1" +
+      " a.z.x=5" +
+      " a.z.y=6" +
+      " print_i(a.x)" +
+      " print_i(a.z.x)" +
+      " print_i(a.z.y)" +
+      "}",
+      null,
+      (0, "10\n5\n6\n", "")
+    )
   }
 
 }

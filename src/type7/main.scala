@@ -221,7 +221,7 @@ object main2 {
     } catch {
     case e:Throwable =>
       if(debug)e.printStackTrace()
-      else println(e.getMessage())
+      else println(e.toString())
     }
   }
   var imports = Set[String]()

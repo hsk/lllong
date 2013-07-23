@@ -6,12 +6,11 @@ import scala.collection.immutable.ListMap
  * 型
  */
 sealed trait T extends Positional
-//  var pos:Pos = null
 
 /** 符号付き整数型 */
-case class Ti(i:Int) extends T
+case class Ti(i: Int) extends T
 /** 符号無し整数型 */
-case class Tu(i:Int) extends T
+case class Tu(i: Int) extends T
 /** 単精度浮動小数点数 */
 case object Tf extends T
 /** 倍精度浮動小数点数 */
@@ -29,15 +28,15 @@ case class TArr(t: T, size: Long) extends T
 /** 構造体型 */
 case class TStr(members: ListMap[String, T]) extends T
 /** 型定義 */
-case class TDef(id:String) extends T
+case class TDef(id: String) extends T
 /** 関数型 */
-case class TFun(rc:T, prms:List[T]) extends T
+case class TFun(rc: T, prms: List[T]) extends T
 
 /**
  * ソースコード上の表現で型を文字列化します
  */
 object ttos {
-  def apply(t:T):String = {
+  def apply(t: T): String = {
     t match {
       case Ti(8) => "byte"
       case Ti(16) => "short"
@@ -53,12 +52,12 @@ object ttos {
       case Tv => "void"
       case Tr(t: T) => "Ref[" + ttos(t) + "]"
       case Tp(t: T) => "Ptr[" + ttos(t) + "]"
-      case TArr(t: T, size: Long) => "Array[" + ttos(t) + ","+size+"]"
-      case TStr(members: Map[String, T]) => "struct{"+members+ "}"
-      case TDef(id:String) => id
-      case TFun(rc:T, prms:List[T]) =>
-        "("+prms.foldLeft(""){case ("",a) => ttos(a) case (e,a)=> e + ", "+a}+ ")->"+ttos(rc)
-      case _ => throw new Exception("error type "+t)
+      case TArr(t: T, size: Long) => "Array[" + ttos(t) + "," + size + "]"
+      case TStr(members: Map[String, T]) => "struct{" + members + "}"
+      case TDef(id: String) => id
+      case TFun(rc: T, prms: List[T]) =>
+        "(" + prms.foldLeft("") { case ("", a) => ttos(a) case (e, a) => e + ", " + a } + ")->" + ttos(rc)
+      case _ => throw new Exception("error type " + t)
     }
   }
 }
@@ -85,7 +84,7 @@ object tName {
       case _: TFun => "p"
       case _: Tp => "a"
       case _: Tr => "a"
-      case _ => throw new Exception("a "+t)
+      case _ => throw new Exception("a " + t)
     }
   }
 }
@@ -93,29 +92,31 @@ object tName {
 /**
  * 抽象構文木
  */
-sealed trait E extends Positional{
-  def t:T
-//  var pos:Pos = null
+sealed trait E extends Positional {
+  def t: T
+  //  var pos:Pos = null
 }
 
 /** 変数定義 */
-case class EVar(t1: T, id: String, i:E=null) extends E {
+case class EVar(t1: T, id: String, i: E = null) extends E {
   val t = Tv
 }
 /** ブロック構文 */
-case class EBlock(t:T, b: List[E]) extends E
+case class EBlock(t: T, b: List[E]) extends E
 /** 整数定数ロード */
-case class ELd(t:T, i: Long) extends E
+case class ELd(t: T, i: Long) extends E
 /** 浮動小数点数定数ロード */
-case class ELdd(t:T, i: Double) extends E
+case class ELdd(t: T, i: Double) extends E
 /** 文字列定数ロード */
-case class ELds(t:T, i: String) extends E
+case class ELds(t: T, i: String) extends E
 /** 変数の参照 */
-case class EId(t:T, id: String) extends E
+case class EId(t: T, id: String) extends E {
+  override def toString(): String = "EId(" + t + "," + id + ")" + this.pos + "\n"
+}
 /** 配列 */
 case class EArray(t: T, id: E, idx: E) extends E
 /** 二項演算子 */
-case class EBin(t: T, it:T, i: String, a: E, b: E) extends E
+case class EBin(t: T, it: T, i: String, a: E, b: E) extends E
 /** -単項演算子 */
 case class ENeg(t: T, a: E) extends E
 /** !演算子 */
@@ -141,63 +142,62 @@ case class ETypeDef(t1: T, id: String) extends E {
   val t = Tv
 }
 /** コメント */
-case class ENop(t:T, s:String) extends E
+case class ENop(t: T, s: String) extends E
 /** 関数呼び出し */
-case class ECall(t:T, f:E, ps:List[E]) extends E
+case class ECall(t: T, f: E, ps: List[E]) extends E
 /** 関数 */
-case class EFun(t:T, id:String, prms:Map[String, T], body:E) extends E
+case class EFun(t: T, id: String, prms: Map[String, T], body: E) extends E
 /** if 式 */
-case class EIf(t:T,e:E,a:E,b:E) extends E
+case class EIf(t: T, e: E, a: E, b: E) extends E
 /** while 文 */
-case class EWhile(t:T,e:E,s:E) extends E
+case class EWhile(t: T, e: E, s: E) extends E
 /** do while 文 */
-case class EDo(t:T,s:List[E],e:E) extends E
+case class EDo(t: T, s: List[E], e: E) extends E
 /** for文 */
-case class EFor(t:T,i:E,c:E,n:E,s:E) extends E
+case class EFor(t: T, i: E, c: E, n: E, s: E) extends E
 /** switch文 */
-case class ESwitch(t:T,i:E, ls:List[(E,E)]) extends E
+case class ESwitch(t: T, i: E, ls: List[(E, E)]) extends E
 /** ジャンプ */
-case class EGoto(t:T,i:String) extends E
+case class EGoto(t: T, i: String) extends E
 /** ラベル */
-case class ELabel(t:T,i:String,e:E) extends E
+case class ELabel(t: T, i: String, e: E) extends E
 /** break */
-case class EBreak(t:T) extends E
+case class EBreak(t: T) extends E
 /** continue */
-case class EContinue(t:T) extends E
+case class EContinue(t: T) extends E
 /** ケース */
-case class ECase(t:T,a:E,e:E) extends E
+case class ECase(t: T, a: E, e: E) extends E
 /** サイズ取得 */
-case class ESizeOf(t:T,t2:T,a:E) extends E
+case class ESizeOf(t: T, t2: T, a: E) extends E
 /** リターン */
-case class ERet(t:T,a:E) extends E
+case class ERet(t: T, a: E) extends E
 /** キャスト */
-case class ECast(t:T, a:E) extends E
+case class ECast(t: T, a: E) extends E
 /** 多値 */
-case class ETuple(t:T, a:List[E]) extends E
+case class ETuple(t: T, a: List[E]) extends E
 /** 多値 */
-case class EImport(id:String) extends E { val t = Tv }
+case class EImport(id: String) extends E { val t = Tv }
 /**
  * 抽象構文木のルート
- */ 
+ */
 case class Prog(b: List[E])
-
 
 // 補助関数
 
 /**
- * プリント関数の呼び出し 
+ * プリント関数の呼び出し
  */
 object EPrint {
-  def apply(t:T, e:E):E = {
-    ECall(Tv, EId(TFun(Tv,List(t)), "print_"+tName(t)), List(e))
+  def apply(t: T, e: E): E = {
+    ECall(Tv, EId(TFun(Tv, List(t)), "print_" + tName(t)), List(e))
   }
 }
 
 /**
  * 二項演算子の構築用
- */ 
-class EOp(op:String) {
-  def apply(t:T, a:E, b:E):EBin = {
+ */
+class EOp(op: String) {
+  def apply(t: T, a: E, b: E): EBin = {
     EBin(t, t, op, a, b)
   }
 }
@@ -205,8 +205,8 @@ class EOp(op:String) {
 /**
  * 比較演算子の構築
  */
-class EOpc(op:String) {
-  def apply(t:T, a:E, b:E):EBin = {
+class EOpc(op: String) {
+  def apply(t: T, a: E, b: E): EBin = {
     EBin(Ti(64), t, op, a, b)
   }
 }
