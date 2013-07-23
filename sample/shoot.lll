@@ -1,0 +1,474 @@
+import math
+import opengl
+
+typedef bool = int
+var false:int = 1
+var true:int = 0
+
+var GLUT_RGBA:int = 0
+var GLUT_NUMBER:int = 2
+var GLUT_DEPTH:int = 16
+var GLUT_KEY_LEFT:byte = 100
+var GLUT_KEY_UP:byte = 101
+var GLUT_KEY_RIGHT:byte = 102
+var GLUT_KEY_DOWN:byte = 103
+var GLUT_KEY_SPACE:byte = 32
+
+var GL_COLOR_BUFFER_BIT:int = 16384
+var GL_QUADS:int = 7
+var GL_LINE_LOOP:int = 2
+var GL_POLYGON:int = 9
+
+var GL_PROJECTION:int = 0x1701
+var GL_DEPTH_BUFFER_BIT:int = 0x00000100
+var GL_MODELVIEW:int = 0x1700
+var GL_DEPTH_TEST:int = 0x0B71
+var GL_BLEND:int = 0x0BE2
+var GL_SRC_ALPHA:int = 0x0302
+var GL_ONE_MINUS_SRC_ALPHA:int = 0x0303
+var GL_ONE:int = 1
+var GL_LIGHT0:int = 0x4000
+var GL_LIGHTING:int = 0x0B50
+var GL_POSITION:int = 0x1203
+var GL_DIFFUSE:int = 0x1201
+var GL_FRONT_AND_BACK:int = 0x0408
+
+def exit(a:int):void
+
+var fullscreen:int = 0
+
+  typedef Key = struct {
+    up:int
+    down:int
+    left:int
+    right:int
+    space:int
+    shot:int
+  }
+  var key:Key
+
+  def downKey(k:byte, x:int, y:int) {
+    k is {
+      GLUT_KEY_UP? key.up = 1 break
+      GLUT_KEY_DOWN? key.down = 1 break
+      GLUT_KEY_LEFT? key.left = 1 break
+      GLUT_KEY_RIGHT? key.right = 1 break
+      GLUT_KEY_SPACE? key.shot = key.space = 1 break
+    }
+  }
+  def upKey(k:byte, x:int, y:int) {
+    k is {
+      GLUT_KEY_UP? key.up = 0 break
+      GLUT_KEY_DOWN? key.down = 0 break
+      GLUT_KEY_LEFT? key.left = 0 break
+      GLUT_KEY_RIGHT? key.right = 0 break
+      GLUT_KEY_SPACE? key.shot = key.space = 0 break
+      27? glutLeaveGameMode() exit(0) break
+    }
+  }
+
+
+var ship:Ptr[Ship]
+//var enemy:Ptr[Enemy]
+
+var enemies:Array[Ptr[Enemy],10]
+var enemiesCnt:int = 10
+var bullets:Array[Ptr[Bullet],500]
+var bulletsCnt:int = 500
+var particles:Array[Ptr[Particle], 500]
+var particlesCnt:int = 500
+var shots:Array[Ptr[Shot],10]
+var shotsCnt:int = 10
+var score:int = 0
+var rank:int = 0
+var randomValue:int = 1143241
+
+
+def main() {
+    ship = newShip(230.0, 450.0)
+//    enemy = newEnemy()
+/*
+    gameover.text = "GAME OVER";
+    gameover.y = 200;
+    gameover.x = 200;
+    addChild(gameover);
+*/
+    for(var i:int = 0; i < bulletsCnt;i++) {
+        bullets[i] = newBullet()
+    }
+    for(i = 0; i < particlesCnt;i++) {
+        particles[i] = newParticle()
+    }
+    for(i = 0; i < shotsCnt;i++) {
+        shots[i] = newShot()
+    }
+    for(i = 0; i < enemiesCnt;i++) {
+        enemies[i] = newEnemy()
+    }
+            
+//            txt.width = 100;
+//            txt.height = 100;
+//            addChild(ship);
+//            addChild(txt);
+}
+
+def random():double = {
+    randomValue = randomValue * 143242143 + 432414321
+    var a:double = 0x7ffffffff
+    (cast(double)randomValue / a)
+}
+
+def onEnter() {
+    var cnt = 0
+    for (var i = 0; i < enemiesCnt; i++) {
+        var enemy = enemies[i]
+        if (enemy.visible) {
+            cnt++
+            enemy.move(enemy)
+        }
+    }
+
+    if(cnt == 0 || random()*100 < rank) {
+        switch(cast(int)(random()*3)) {
+        case 0: addEnemy(0.0, random() * 200.0, 0.0); break
+        case 1: addEnemy(random() * 465.0, 0.0, PI / 2.0); break
+        case 2: addEnemy(465.0, random() * 200.0, PI); break
+        }
+    }
+    /*
+    if(gameover.visible && key.start) {
+        score = 0
+        rank = 1
+        gameover.visible = false
+        Ship_init(&ship)
+    }
+    */
+    if(ship.visible)Ship_move(ship)
+
+    for (i = 0; i < bulletsCnt; i++) {
+        var b = bullets[i]
+        if(b.visible) {
+            Bullet_move(b)
+            if(ship.exists && abs(ship.x - b.x) < 3 && abs(ship.y - b.y) < 3) {
+                addParticles(ship.x, ship.y, 100)
+                ship.exists = false
+                ship.visible = false
+     //           gameover.visible = true
+            }
+        }
+    }
+
+    for (i = 0; i < shotsCnt; i++) {
+        var s = shots[i]
+        if (s.visible) {
+            for (var j = 0; j < enemiesCnt; j++) {
+                enemy = enemies[j]
+                if(enemy.visible && abs(enemy.x - s.x) < 30 && abs(enemy.y - s.y) < 30) {
+                    score += 100
+                    rank = score / 1000
+                    addParticles(enemy.x, enemy.y, 30)
+                    enemy.visible = false
+                }
+            }
+            Shot_move(s)
+        }
+    }
+    for (i = 0; i < particlesCnt; i++) {
+        var p = particles[i]
+        if(p.visible) Particle_move(p)
+    }
+//    txt.text = "SCORE "+score;
+}
+
+def addParticles(x:double, y:double, n:int) {
+    for (var i:int = 0; i < n; i++) {
+        addParticle(x, y, random() * 100)
+    }
+}
+
+def addBulletN(x:double, y:double, rad:double, n:int, r:double) {
+    for (var i:int = 0; i < n; i++) {
+        addBullet(x, y, rad +(cast(double)i - cast(double)n / 2.0) * r)
+    }
+}
+
+def addBullet(x:double, y:double, rad:double) {
+    for (var i:int = 0; i < bulletsCnt; i++) {
+        var b = bullets[i]
+        if(b.visible) continue
+        Bullet_init(b, x, y, rad)
+        return
+    }
+}
+def addShot(x:double, y:double, rad:double) {
+    for (var i:int = 0; i < shotsCnt; i++) {
+        var b = shots[i]
+        if(b.visible) continue
+        Shot_init(b, x, y, rad)
+        return
+    }
+}
+def addParticle(x:double, y:double, rad:double) {
+    for (var i:int = 0; i < particlesCnt; i++) {
+        var b = particles[i]
+        if(b.visible) continue
+        Particle_init(b, x, y, rad)
+        return
+    }
+}
+
+def addEnemy(x:double, y:double, rad:double) {
+    for (var i:int = 0; i < enemiesCnt; i++) {
+        var b = enemies[i]
+        if(b.visible) continue
+        Enemy_init(b, x, y, rad)
+        return
+    }
+}
+
+typedef Ship = struct {
+
+    x:double
+    y:double
+    visible:bool
+    speed:double
+    exists:bool
+    timer:int
+}
+
+def newShip(x:double, y:double):Ptr[Ship] = {
+  var this = new Ship
+  this.speed = 5
+  this.x = x
+  this.y = y
+  this
+}
+
+def Ship_draw(ship:Ptr[Ship]) {
+//        graphics.beginFill(0xffff0000);
+//        graphics.drawRect(-5,-5,10,10);
+//        graphics.endFill();
+}
+
+def Ship_init(this:Ptr[Ship]) {
+  this.exists = false
+  this.timer = 0
+  this.visible = true
+}
+
+def Ship_move(this:Ptr[Ship]) {
+  this.timer++
+  if(this.timer > 300) this.exists = true
+  if(key.shot)addShot(this.x, this.y, -PI / 2)
+  if(key.left)this.x -= this.speed
+  if(key.right)this.x += this.speed
+  if(key.up)this.y -= this.speed
+  if(key.down)this.y += this.speed
+  if(this.x < 0) this.x = 5 else if(this.x > 465) this.x = 465 - 5
+  if(this.y < 0) this.y = 5 else if(this.y > 465) this.y = 465 - 5
+}
+
+typedef Enemy = struct {
+    x:double
+    y:double
+    visible:bool
+    speed:double
+    rad:double
+    r:double
+    move:(Ptr[Enemy])=>void
+    nextMove:(Ptr[Enemy])=>void
+    time:int
+    r2:double
+}
+
+def newEnemy():Ptr[Enemy] = {
+    var this = new Enemy
+    this.speed = 5
+    this.rad = 0
+    this.r = 0.05
+    this.r2 = 0
+    this.visible = false
+    this
+}
+
+def Enemy_draw(this:Ptr[Enemy]) {
+//        graphics.beginFill(0xffff0000);
+//        graphics.drawRect(-5,-5,10,10);
+//        graphics.endFill();
+}
+
+def Enemy_init(this:Ptr[Enemy], x:double, y:double, rad:double) {
+    this.x = x
+    this.y = y
+    this.rad = atan((y - ship.y) / (x - ship.x))
+    this.visible = true
+    this.move = Enemy_move1
+}
+
+def Enemy_moveBody(this:Ptr[Enemy]):double = {
+    var rad2:double = atan2(ship.y - this.y, ship.x - this.x)
+    if (normalRad(this.rad - rad2) < 0) this.rad += this.r
+    else this.rad -= this.r
+    this.rad = normalRad(this.rad)
+    this.x += cos(this.rad) * this.speed
+    this.y += sin(this.rad) * this.speed
+    if(this.x < 0) this.x = 5 else if(this.x > 465) this.x = 465 - 5
+    if(this.y < 0) this.y = 5 else if(this.y > 465) this.y = 465 - 5
+    return rad2
+}
+
+def Enemy_wait(this:Ptr[Enemy],w:int,next:(Ptr[Enemy])=>void) {
+    this.time = w
+    this.move = Enemy_moveWait
+    this.nextMove = next
+}
+
+def Enemy_moveWait(this:Ptr[Enemy]) {
+    Enemy_moveBody(this)
+    this.time -= 1
+    if(this.time <= 0) {
+        this.move = this.nextMove
+    }
+}
+
+def Enemy_move1(this:Ptr[Enemy]) {
+    var r:double = Enemy_moveBody(this)
+    if(random() > 0.8) {
+        addBullet(this.x, this.y, this.r)
+        if(random() > 0.8) {
+            this.r2 = 0
+            Enemy_wait(this, 30, Enemy_move2);
+        }
+    }
+}
+def Enemy_move2(this:Ptr[Enemy]) {
+    var r:double = Enemy_moveBody(this)
+    var rr:int = cast(int)(random() * 5.0 + 1.0)
+    addBulletN(this.x, this.y, r + this.r2, rr, 0.1)
+    this.r2 = this.r2 + cast(double)rr * 0.1
+    if(random() < 0.03)Enemy_wait(this, 60, Enemy_move1)
+}
+
+var PI = 3.141592
+
+def normalRad(v:double):double = {
+    v + 2 * PI * (
+        if (v >  PI) -1 else
+        if (v < -PI) 1 else 0
+    )
+}
+
+typedef Particle = struct {
+    x:double
+    y:double
+    visible:bool
+    speed:double
+    rad:double
+}
+
+def newParticle():Ptr[Particle] = {
+    var this = new Particle
+    this.speed = 5
+    this.visible = false
+    this
+}
+
+def Particle_init(this:Ptr[Particle], x:double, y:double, rad:double) {
+    this.x = x
+    this.y = y
+    this.rad = rad
+    this.visible = true
+    this.speed = random() * 50 + 10
+}
+
+def Particle_draw(this:Ptr[Particle]) {
+/*
+    graphics.beginFill(0xffff8800)
+    graphics.drawRect(-2,-2,4,4)
+    graphics.endFill()
+    */
+}
+
+def Particle_move(this:Ptr[Particle]):bool = {
+    this.x += cos(this.rad)*this.speed
+    this.y += sin(this.rad)*this.speed
+    if(this.x < 0 || 465 < this.x || this.y < 0 || 465 < this.y)
+        this.visible = false
+    this.visible
+}
+
+typedef Bullet = struct {
+    x:double
+    y:double
+    visible:bool
+    speed:double
+    rad:double
+}
+
+def newBullet():Ptr[Bullet] = {
+    var this = new Bullet
+    this.visible = false
+    this.speed = 10
+    this
+}
+
+def Bullet_init(this:Ptr[Bullet], x:double, y:double, rad:double) {
+    this.x = x
+    this.y = y
+    this.rad = rad
+    this.visible = true
+}
+
+def Bullet_draw(this:Ptr[Bullet]) {
+/*
+    graphics.beginFill(0xffff8800)
+    graphics.drawRect(-5,-5,10,10)
+    graphics.endFill()
+*/
+}
+
+def Bullet_move(this:Ptr[Bullet]):bool = {
+    this.x += cos(this.rad)*this.speed
+    this.y += sin(this.rad)*this.speed
+    if(this.x < 0 || 465 < this.x || this.y < 0 || 465 < this.y)
+    this.visible = false
+    this.visible
+}
+
+typedef Shot = struct {
+    x:double
+    y:double
+    visible:bool
+    angle:double
+    speed:double
+    rad:double
+}
+
+def newShot ():Ptr[Shot] = {
+    var this = new Shot
+    this.speed = 25
+    this.visible = false
+    this
+}
+
+def Shot_init(this:Ptr[Shot], x:double, y:double, rad:double) {
+    this.x = this.x
+    this.y = this.y
+    this.rad = this.rad
+    this.visible = true
+}
+
+def Shot_draw(this:Ptr[Shot]) {
+//    graphics.beginFill(0xff88ff88)
+//    graphics.drawRect(-15,-5,10,10)
+//    graphics.drawRect(5,-5,10,10)
+//    graphics.endFill()
+}
+
+def Shot_move(this:Ptr[Shot]):bool = {
+    this.x += cos(this.rad) * this.speed
+    this.y += sin(this.rad) * this.speed
+    if (this.x < 0 || 465 < this.x || this.y < 0 || 465 < this.y)
+        this.visible = false
+    this.visible
+}

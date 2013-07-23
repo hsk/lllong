@@ -1,0 +1,5 @@
+def cos(a:double):double
+def sin(a:double):double
+def atan(a:double):double
+def abs(a:double):double
+def atan2(a:double,b:double):double
