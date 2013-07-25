@@ -80,6 +80,7 @@ object compact {
     "&" -> Opl(100),
     "!" -> Opl(90),
     "var" -> Opl(10),
+    "val" -> Opl(10),
     "def" -> Opl(10),
     "return" -> Opl(10),
     "goto" -> Opl(10),

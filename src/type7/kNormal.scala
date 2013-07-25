@@ -307,7 +307,7 @@ object kNormal {
         continues = continues.tail
         breaks = breaks.tail
         null
-
+/*
       case e @ ESwitch(t: T, a: E, cases: List[(E, E)]) =>
         val ra = transLocal(a)
         val lbl = genid("switch")
@@ -326,7 +326,42 @@ object kNormal {
         breaks = breaks.tail
         add(LLLabel(null, lbl + cases.length))
         null
-
+*/
+      case ESwitch(t, a, cases) =>
+        val ra = transLocal(a)
+        val lbl = genid("switch")+"_"
+        val end = lbl+"end"
+        breaks = end::breaks
+        val (hasDefault, defaultno) = cases.foldLeft(false,0) {
+          case ((hasDefault,no), (ECase(t, null, _), b)) => (true, no)// default
+          case ((hasDefault,no), (ECase(t, a, _), b)) =>// case a: b
+            val l3 = transLocal(a)
+            val next = lbl+"case"+(no+1)
+            val r = genRL(Ti(64)); add(LLBin(r, "eq", l3, ra))
+            add(LLJne(r, next, lbl+no, next))
+            (hasDefault, no + 1)
+        }
+        if(!hasDefault) {
+          add(LLGoto(lbl+"_block", end))
+        } else {
+          add(LLGoto(lbl+"_block", lbl+"_default"))
+        }
+        // とび先
+        cases.foldLeft(0) {
+          case (no, (ECase(t, null, _), b)) =>// default
+            add(LLLabel(lbl + "_default",lbl + "_default"))
+            transLocal(b)
+            no
+          case (no, (ECase(t, a, _), b)) =>
+            add(LLLabel(lbl + no, lbl + no))
+            transLocal(b)
+            no + 1
+        }
+        breaks = breaks.tail
+        // 終了
+        add(LLLabel(end, end))
+        null
+        
       case _ => throw new Exception("error " + e)
     }
   }

@@ -51,10 +51,17 @@ object typing {
       // 変数を環境に保存
       case EVar(t, id, a) =>
         global_env.add(id, t)
+      case EVal(Tn, a, c) =>
+        val c2 = typingLocal(Tn, c)
+        global_env.add(a, c2.t)
+      // 変数を環境に保存
+      case EVal(t, id, a) =>
+        global_env.add(id, t)
+
       // 何かの残骸は読み捨て
       case e: ENop =>
-      case EImport(id) => main2.importFile(id+".lll")
-        
+      case EImport(id) => main2.importFile(id + ".lll")
+
       case e =>
         throw new TypeError(e.pos, "syntax error found unexpected expression in global scope " + e)
     }
@@ -70,7 +77,7 @@ object typing {
    * @return E
    */
   private def typingGlobal(e: E): E = {
-    println("f "+e)
+    println("f " + e)
     e match {
       case e @ EFun(t: T, id: String, p1: Map[String, T], b: E) =>
         // 関数の型で環境を初期化
@@ -82,12 +89,12 @@ object typing {
           case (t, Tr(a)) =>
             if (t != a) {
               throw TypeError(e.pos, "error function " + id +
-                  " type error type=" + ttos(t) + " return type " + ttos(b2.t) + " " + b2)
+                " type error type=" + ttos(t) + " return type " + ttos(b2.t) + " " + b2)
             }
           case (t, a) =>
             if (t != a) {
               throw TypeError(e.pos, "error function " + id +
-                  " type error type=" + ttos(t) + " return type " + ttos(b2.t) + " " + b2)
+                " type error type=" + ttos(t) + " return type " + ttos(b2.t) + " " + b2)
             }
         }
         p(e, e.copy(t, id, p1, b2))
@@ -101,46 +108,45 @@ object typing {
         global_env.add(id, t); e
 
       // var a = 1 
-      case ea @ EVar(Tn, b, c) =>
-        if (env.map.getOrElse(b, null) != null) {
-          throw TypeError(e.pos, b + " is already defined ")
-        }
+      case ea @ EVar(t, b, c) =>
+        val (b1, t1, e1) = typingGlobalVar(EVar(_, _, _), ea, t, b, c)
+        global_env.add(b1, t1)
+        e1
+      case ea @ EVal(t, b, c) =>
+        val (b1, t1, e1) = typingGlobalVar(EVal(_, _, _), ea, t, b, c)
+        global_env.add(b1, t1)
+        e1
+      case _: EImport => e // スルー
+      case e: ETypeDef => e
+      case e: ENop => e
+      case e => throw new Exception("error " + e) // スルー
+    }
+  }
+
+  private def typingGlobalVar(ecopy: (T, String, E) => E, ea: E, t: T, b: String, c: E): (String, T, E) = {
+    if (env.map.getOrElse(b, null) != null) {
+      throw TypeError(ea.pos, b + " is already defined ")
+    }
+
+    (t, b, c) match {
+      case (Tn, b, c) =>
         val c2 = typingLocal(Ti(64), c)
-        global_env.add(b, c2.t)
-        p(ea, ea.copy(c2.t, b, c2))
+        (b, c2.t, p(ea, ecopy(c2.t, b, c2)))
 
       // var a:int = 1 型が決まっている整数
-      case ea @ EVar(t, a, ed @ ELd(_, c)) =>
-        if (env.map.getOrElse(a, null) != null) {
-          throw TypeError(e.pos, a + " is already defined ")
-        }
-        global_env.add(a, t)
-        p(ea, ea.copy(t, a, p(ed,ed.copy(t, c))))
+      case (t, a, ed @ ELd(_, c)) =>
+        (a, t, p(ea, ecopy(t, a, p(ed, ed.copy(t, c)))))
 
       // var a:float = 1.0 固定のdouble値
-      case ea @ EVar(t, a, ed @ ELdd(_, c)) =>
-        if (env.map.getOrElse(a, null) != null) {
-          throw TypeError(e.pos, a + " is already defined")
-        }
-        global_env.add(a, t)
-        p(ea, ea.copy(t, a, p(ed,ed.copy(t, c))))
+      case (t, a, ed @ ELdd(_, c)) =>
+        (a, t, p(ea, ecopy(t, a, p(ed, ed.copy(t, c)))))
 
       // 文字列
-      case ea @ EVar(t, a, ed @ ELds(_, c)) =>
-        if (env.map.getOrElse(a, null) != null) {
-          throw TypeError(e.pos, a + " is already defined")
-        }
-        global_env.add(a, t)
-        p(ea, ea.copy(t, a, p(ed, ed.copy(t, c))))
-        
+      case (t, a, ed @ ELds(_, c)) =>
+        (a, t, p(ea, ecopy(t, a, p(ed, ed.copy(t, c)))))
+
       // タプル
-      case ea @ EVar(t, a, ed @ ETuple(_, c)) =>
-        if (env.map.getOrElse(a, null) != null) {
-          throw TypeError(e.pos, a + " is already defined")
-        }
-
-        global_env.add(a, t)
-
+      case (t, a, ed @ ETuple(_, c)) =>
         env.stripType(t) match {
           case t @ TStr(ts) =>
             def cpType(a: List[E], ts: List[(String, T)]): List[E] = {
@@ -150,24 +156,20 @@ object typing {
                 case _ => throw new Exception("error")
               }
             }
-            p(ea, ea.copy(t, a, p(ed, ed.copy(t, cpType(c, ts.toList)))))
-          case _ => throw TypeError(e.pos, a + " type unmatch")
+            (a, t, p(ea, ecopy(t, a, p(ed, ed.copy(t, cpType(c, ts.toList))))))
+          case _ => throw TypeError(ea.pos, a + " type unmatch")
         }
-      case _:EImport => e // スルー
-      case e:ETypeDef => e
-      case e:ENop => e
-      case e => throw new Exception("error "+e) // スルー
     }
   }
 
-  def p(e:E, e2:E):E = transduce.p(e,e2)
+  def p(e: E, e2: E): E = transduce.p(e, e2)
   /**
    * ローカル変数の型付け
    *
    * 式の型が決まっていない場合に、子の型から型を決定する
    * 基本的にトップダウンで末端まで行って型を取得してトップまで合わせるだけになっている。
    * TODO: トップの型とのチェックはしていないので、チェックする
-   * 
+   *
    * @param pt: T
    * @param e: E
    * @return E
@@ -352,7 +354,7 @@ object typing {
         val a2 = typingLocal(funType, a)
         if (funType != a2.t) {
           throw TypeError(e.pos, "return type error. expected type is " +
-              ttos(funType) + " but found " + ttos(a2.t) + " " + e)
+            ttos(funType) + " but found " + ttos(a2.t) + " " + e)
         }
         ERet(Tr(a2.t), a2)
       // 変数
@@ -417,7 +419,7 @@ object typing {
         }
       case e @ ECall(t: T, a1: E, ls: List[E]) =>
         val a2 = typingLocal(Tn, a1)
-        def checkTypes(n:Int, as: List[T], ps: List[E], rs: List[E]): List[E] = {
+        def checkTypes(n: Int, as: List[T], ps: List[E], rs: List[E]): List[E] = {
           (as, ps) match {
 
             case (List(), List()) => rs
@@ -429,19 +431,19 @@ object typing {
                 a1 match {
                   case EId(t, id) =>
                     throw TypeError(a1.pos, n + "th parameter type check error " + id + ":" +
-                        ttos(a2.t) + " found:" + ttos(p2.t) + " expected:" + ttos(a))
+                      ttos(a2.t) + " found:" + ttos(p2.t) + " expected:" + ttos(a))
                   case _ =>
                     throw TypeError(a1.pos, n + "th parameter type check error " + a1 + " " +
-                        ttos(a2.t) + " " + ttos(p2.t) + " " + ttos(a))
+                      ttos(a2.t) + " " + ttos(p2.t) + " " + ttos(a))
                 }
               }
-              checkTypes(n+1, as, ps, p2 :: rs)
+              checkTypes(n + 1, as, ps, p2 :: rs)
             case _ =>
               throw TypeError(a1.pos, n + "th parameter undefined function " + a1 + " a2.t=" + a2.t)
           }
         }
-        val (t2,prms) = a2.t match {
-          case TFun(t2, prms) => (t2,prms)
+        val (t2, prms) = a2.t match {
+          case TFun(t2, prms) => (t2, prms)
           case Tp(TFun(t2, prms)) => (t2, prms)
           case _ =>
             throw TypeError(a1.pos, "error undefined function " + a1 + " a2.t=" + a2.t)
@@ -461,7 +463,7 @@ object typing {
 
   /**
    * 暗黙の型変換付きの型付け処理
-   * 
+   *
    * @param e: Ebin
    * @param a1: E
    * @param b1: E
@@ -509,7 +511,7 @@ object typing {
 
   /**
    * ２つの式の型を合わせる代入時処理
-   * 
+   *
    * @param f: EAssign
    * @param a: E
    * @param b: E
@@ -525,20 +527,21 @@ object typing {
       case (Tf, Td) => p(f, f.copy(Tf, a, ECast(Tf, b)))
       // aがポインタなら親もポインタ
       case (Tp(t1), Tn) => p(f, f.copy(Tp(t1), a, b))
-      case (Tp(t1), TArr(t2,_)) => p(f, f.copy(Tp(t1), a, b))
-      case (Tp(t1), Tp(t2)) if(t1==t2) => p(f, f.copy(Tp(t1), a, b))
-      case (TArr(t1,_), Tp(t2)) if(t1==t2) => p(f, f.copy(Tp(t1), a, b))
+      case (Tp(t1), TArr(t2, _)) => p(f, f.copy(Tp(t1), a, b))
+      case (Tp(t1), Tp(t2)) if (t1 == t2) => p(f, f.copy(Tp(t1), a, b))
+      case (TArr(t1, _), Tp(t2)) if (t1 == t2) => p(f, f.copy(Tp(t1), a, b))
       // 片方の型が決まっていなければコピーする
       case (Tn, t1) =>
         throw TypeError(a.pos, "kore 3  " + b.pos); p(f, f.copy(t1, setT(a, t1), b))
-      case (t1, Tn) => throw TypeError(a.pos, "kore 4  " + b.pos); p(f, f.copy(t1, a, setT(b, t1)))
-      case (t1, t2) => throw TypeError(a.pos, "type error " + b.pos + " " +a+" "+b)
+      case (t1, Tn) =>
+        throw TypeError(a.pos, "kore 4  " + b.pos); p(f, f.copy(t1, a, setT(b, t1)))
+      case (t1, t2) => throw TypeError(a.pos, "type error " + b.pos + " " + a + " " + b)
     }
   }
 
   /**
    * 式に型を設定
-   * 
+   *
    * @param e: E 式
    * @param t: T 設定する型
    * @return E 型設定後の式

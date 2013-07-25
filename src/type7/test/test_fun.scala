@@ -173,15 +173,65 @@ Prog(List(
       ECall(Tn,EId(Tn,"a"),List(EId(Tn,"f"))))
   ))
 ))
-      
-      /*
-
- */
     test("function pointer local var",
       "def a(n:int) { print_i(n) } def main() { a(10); var ccc:(int)=>void; ccc= a; ccc(20);}",
       null,
       (0, "10\n20\n", ""))
 
+    test("function pointer local var 2",
+      "def a(n:int) { print_i(n) } def main() { var ccc= a; ccc(20);}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer local struct",
+      "def a(n:int) { print_i(n) } def main() { typedef A = struct {m:(int)=>void}; var a1:A; a1.m= a; a1.m(20);}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct",
+      "typedef A = struct {m:(int)=>void} def a(n:int) { print_i(n) } def main() { var a1:A; a1.m= a; a1.m(20);}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 2",
+      "typedef A = struct {m:(int)=>void} def a(n:int) { print_i(n) } var a1:A; def main() {  a1.m= a; a1.m(20);}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 3",
+      "typedef A = struct {m:(int)=>void} def a(n:int) { print_i(n) } var a1:Ptr[A]; def main() {a1=new A;  a1.m= a; a1.m(20);}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 4",
+      "typedef A=struct{m:(int)=>void}def a(n:int){print_i(n)}var a1:Ptr[A]def main(){var a1:A b(&a1)}def b(a1:Ptr[A]){a1.m=a;a1.m(20)}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 5",
+      "def main(){b(20)}" +
+      "def b(a:int){var a1:int a1=a;print_i(a1)}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 5",
+      "def main(){b(20)}" +
+      "def b(a:int){var a1:A a1.m=a; print_i(a1.m)}" +
+      "typedef A=struct{m:int}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 5",
+      "def main(){b(20)}" +
+      "def b(a:int){var a1:Ptr[A] = new A; a1.m=a; print_i(a1.m)}" +
+      "typedef A=struct{m:int}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 5",
+      "def main(){var a1:A b(&a1,a)}" +
+      "def b(a1:Ptr[A],a:int){a1.m=a}" +
+      "typedef A=struct{m:int}",
+      null,
+      (0, "20\n", ""))
+    test("function pointer global struct 5",
+      "def main(){var a1:A b(&a1,a)}" +
+      "def b(a1:Ptr[A],a:(int)=>void){a1.m=a a1.m(20)}" +
+      "typedef A=struct{m:(int)=>void}" +
+      "def a(n:int){print_i(n)}",
+      null,
+      (0, "20\n", ""))
   }
 
 }

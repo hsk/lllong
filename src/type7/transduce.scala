@@ -98,6 +98,8 @@ object transduce {
       //      case (o@Id("-"), Dbl(a)) => p(o,ELdd(Td, -a)) 
       case ((o @ Id("var"), (Id(a), Id(":"), t1)), Id("="), b) => p(o, EVar(t(t1), a, f(b)))
       case ((o @ Id("var"), Id(a)), Id("="), b) => p(o, EVar(Tn, a, f(b)))
+      case ((o @ Id("val"), (Id(a), Id(":"), t1)), Id("="), b) => p(o, EVal(t(t1), a, f(b)))
+      case ((o @ Id("val"), Id(a)), Id("="), b) => p(o, EVal(Tn, a, f(b)))
       case (a, Id("="), b) => bin(EAssign, a, b)
       case (a, Id("["), b, Id("]")) => bin(EArray, a, b)
       case (o @ Id("*"), a) => p(o, EPtr(Tn, f(a)))

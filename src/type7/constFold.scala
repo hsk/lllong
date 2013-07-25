@@ -66,12 +66,13 @@ class constFold(parent: constFold) {
         case l: LLNop => add(l)
         case l @ LLJne(r, _, _, _) => add(l.copy(expand(r)))
         case l @ LLPhi(reg: R, l1: String, l2: String, t: T, r1: R, r2: R) => add(l.copy(reg = expand(reg), r1 = expand(r1), r2 = expand(r2)))
-        case l @ LLGlobal(s, d) =>
+        case l @ LLGlobal(s, d) => add(l)
+          /*
           kNormal.tName2(s.t) match {
             case "" => map = map + (s.id -> d)
             case _ =>
           }
-          add(l)
+          add(l)*/
         case l: LLLoadCStr => add(l)
         case l => throw new Exception("error no implementation " + l)
       }

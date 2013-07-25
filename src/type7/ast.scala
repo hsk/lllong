@@ -94,13 +94,13 @@ object tName {
  */
 sealed trait E extends Positional {
   def t: T
-  //  var pos:Pos = null
+  override def toString():String = pp(this)
 }
 
 /** 変数定義 */
-case class EVar(t1: T, id: String, i: E = null) extends E {
-  val t = Tv
-}
+case class EVar(t1: T, id: String, i: E = null) extends E { val t = Tv }
+/** 不変変数定義 */
+case class EVal(t1: T, id: String, i: E) extends E { val t = Tv }
 /** ブロック構文 */
 case class EBlock(t: T, b: List[E]) extends E
 /** 整数定数ロード */
@@ -138,9 +138,7 @@ case class EField(t: T, t2: T, a: E, id: String) extends E
 /** アロー演算子 */
 case class EArrow(t: T, t2: T, a: E, id: String) extends E
 /** 型定義 */
-case class ETypeDef(t1: T, id: String) extends E {
-  val t = Tv
-}
+case class ETypeDef(t1: T, id: String) extends E { val t = Tv }
 /** コメント */
 case class ENop(t: T, s: String) extends E
 /** 関数呼び出し */
