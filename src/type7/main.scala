@@ -14,8 +14,8 @@ object main {
     val prg = exec.readAll(new FileInputStream(argv(0)))
     val st = compact.parse(prg)
     val ast = transduce(st)
-    val tast = typing(ast)
-
+    val ast2 = alpha(ast)
+    val tast = typing(ast2)
     val llcodes = kNormal(tast)
     val llcodes2 = constFold(llcodes)
     llemit("e.ll", llcodes2)
@@ -44,7 +44,8 @@ object main2 {
     }
     if (debug) println("ast="+ast)
     // 型付け
-    val tast = typing(ast); if (debug) println("tast="+tast)
+    val ast2 = alpha(ast)
+    val tast = typing(ast2); if (debug) println("tast="+tast)
     
     val lname = sname.replaceAll(".s$", ".ll")
 

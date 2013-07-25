@@ -31,7 +31,7 @@ object pp {
       case EArray(t, id, idx) =>
         "EArray" :: "(" :: f(t) ::: "," :: f(id) ::: "," :: f(idx) ::: List(")")
       case EBin(t, t2, op, a, b) =>
-        "EBin" :: "(" :: f(t) ::: "," :: f(t2) ::: "," :: f(a) ::: "," :: f(b) ::: List(")")
+        "EBin" :: "(" :: f(t) ::: "," :: f(t2) ::: "," :: op :: "," :: f(a) ::: "," :: f(b) ::: List(")")
       case ENeg(t, a) => "ENeg" :: "(" :: f(t) ::: "," :: f(a) ::: List(")")
       case ENot(t, a) => "ENot" :: "(" :: f(t) ::: "," :: f(a) ::: List(")")
       case EAssign(t, a, b) =>

@@ -223,9 +223,9 @@ object typing {
         p(ea, ea.copy(c2.t, a, c2))
       // var a:t = f
       case ea @ EVar(t, a, c) =>
-        if (env.map.getOrElse(a, null) != null) {
-          throw TypeError(e.pos, a + " is already defined ")
-        }
+        //if (env.map.getOrElse(a, null) != null) {
+        //  throw TypeError(e.pos, a + " is already defined ")
+        //}
         env.addTypeDef(a, t)
         p(ea, ea.copy(t, a, c match {
           case c: ELdd => p(c, c.copy(t = t))

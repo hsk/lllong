@@ -25,7 +25,9 @@ object test {
               //val st2 = transClass(st)
               val ast = transduce(st)
               println("ast=" + ast)
-              typing(ast)
+              val ast2 = alpha(ast)
+              println("ast2=" + ast2)
+              typing(ast2)
             case "combinator" =>
               throw new Exception("not support")
               //val r = parser.parse(s)
