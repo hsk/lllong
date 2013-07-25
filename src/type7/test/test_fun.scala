@@ -4,6 +4,31 @@ object test_fun extends TestCase {
   import type7.test.test_globals._
 
   def apply() {
+    test("function pointer var",
+      "def a(ff:(int)=>void) { ff(10) } def f(a:int){print_i(a)} def main() { a(f) }",
+      null,
+      (0, "10\n", ""))
+    test("pointer to struct ",
+      "def main(){var a1:A b(&a1,a)}" +
+      "def b(a1:Ptr[A],a:(int)=>void){a1.m= a a1.m(20)}" +
+      "typedef A=struct{m:(int)=>void}" +
+      "def a(n:int){print_i(n)}",
+      null,
+      (0, "20\n", ""))
+    test("pointer to struct ",
+      "def main(){var a1:A b(&a1,a)}" +
+      "def b(a1:Ptr[A],a:(int)=>void){a1.m= a a1.m=a1.m a1.m(20)}" +
+      "typedef A=struct{m:(int)=>void}" +
+      "def a(n:int){print_i(n)}",
+      null,
+      (0, "20\n", ""))
+
+    test("function pointer struct",
+      "def main(){var a1:A var a:int = 10; b(&a1, &a)}" +
+      "def b(a1:Ptr[A],a:Ptr[int]){a1.m= a print_i(*a1.m)}" +
+      "typedef A=struct{m:Ptr[int]}",
+      null,
+      (0, "10\n", ""))
     // void テスト
     test("fun void",
       "def main():void = {" +
@@ -157,11 +182,6 @@ object test_fun extends TestCase {
       null,
       (0, "1\n", ""))
 
-    test("function pointer var",
-      "def a(ff:(int)=>void) { ff(10) } def f(a:int){print_i(a)} def main() { a(f) }",
-      null,
-      (0, "10\n", ""))
-
 Prog(List(
   EFun(Tv,"a",Map("ff" -> TFun(Tv,List(Ti(32)))),EBlock(Tn,List(
       ECall(Tn,EId(Tn,"ff"),List(ELd(Tn,10))))
@@ -220,18 +240,11 @@ Prog(List(
       null,
       (0, "20\n", ""))
     test("function pointer global struct 5",
-      "def main(){var a1:A b(&a1,a)}" +
-      "def b(a1:Ptr[A],a:int){a1.m=a}" +
+      "def main(){var a1:A b(&a1,10)}" +
+      "def b(a1:Ptr[A],a:int){a1.m=a print_i(a1.m)}" +
       "typedef A=struct{m:int}",
       null,
-      (0, "20\n", ""))
-    test("function pointer global struct 5",
-      "def main(){var a1:A b(&a1,a)}" +
-      "def b(a1:Ptr[A],a:(int)=>void){a1.m=a a1.m(20)}" +
-      "typedef A=struct{m:(int)=>void}" +
-      "def a(n:int){print_i(n)}",
-      null,
-      (0, "20\n", ""))
+      (0, "10\n", ""))
   }
 
 }

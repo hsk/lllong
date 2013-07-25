@@ -150,7 +150,6 @@ object llemit {
 
         val r = op match {
           case RL(Tp(t), _) => val r = kNormal.genRL(t); p(r, "load " + p(Tp(t)) + " " + p(op)); r
-          case RL(t, _) => val r = kNormal.genRL(t); p(r, "load " + p(Tp(t)) + " " + p(op)); r
           case _ => op
         }
 

@@ -218,7 +218,7 @@ object kNormal {
         val r = genRL(t); add(LLUnary(r, "not", transLocal(a))); r
       case _: EArray | _: EField | _: EPtr | _: EArrow | _: EId => transField(e)
       case EAssign(t, a, b) => transAssign(t, a, b)
-      case ECall(t, EId(ft, n), l1) if (global_env.map.contains(n)) =>
+      case ECall(t, EId(ft, n), l1) if (!env.map.contains(n) && global_env.map.contains(n)) =>
         val r = genRL(t)
         add(LLCall(r, env.findR(n), l1.map { transLocal }))
         r
@@ -393,10 +393,17 @@ object kNormal {
    */
   private def transAssign(t: T, a: E, b: E): R = {
     a match {
-      case EId(_, a) => transStore(env.findR(a), transLocal(b))
+      case EId(_, a) => add(LLNop("EId "+ a.toString().replaceAll("\n"," "))); transStore(env.findR(a), transLocal(b))
       case EArray(t, e, idx) => transAStore(t, transField(e), transLocal(idx), transLocal(b))
       case EPtr(t, e) => transAStore(t, transField(e), RN(Ti(64), "0"), transLocal(b))
-      case EField(_, t, e, idx) => transPutField(t, idx, transField(e), transLocal(b))
+      case EField(_, t, e, idx) =>
+        add(LLNop("EField "+a.toString().replaceAll("\n"," ")));
+        val e2 = transField(e)
+        add(LLNop("e2 "+e2.toString().replaceAll("\n"," ")));
+        val b2 = transLocal(b)
+        println("b="+b+ " b2="+b2)
+        add(LLNop("b2 "+b2.toString().replaceAll("\n"," ")));
+        transPutField(t, idx, e2, b2)
       case EArrow(_, t, e, idx) => transPutField(t, idx, transField(EPtr(t, e)), transLocal(b))
       case _ => throw new Exception("error assign " + t + " " + a + " " + b)
     }
@@ -418,7 +425,22 @@ object kNormal {
           case t: Tr => setT(a, t)
           case t @ TArr(t2, _) =>
             val r = genRL(Tp(t2)); add(LLCast(r, setT(a, Tp(t)))); r
-          case t: TFun => a
+          case t: TFun =>
+            a match {
+              case RL(t:Tp, id) =>
+                add(LLNop("R1---------"))
+                val r = kNormal.genRL(Tp(t)); add(LLLoad(r, RL(Tp(t),id))); r
+                val r2 = kNormal.genRL(t); add(LLLoad(r2, r))
+                add(LLNop("R1 AAAAAA"))
+                
+                r2
+              case RL(t, id) =>
+                add(LLNop("R2--------- "+a))
+
+                val r = kNormal.genRL(t); add(LLLoad(r, RL(Tp(t),id))); r
+              case a => a
+            }
+          
           case t => setT(a, Tp(t))
         }
       case _ => val r = genRL(a.t); add(LLLoad(r, setT(a, Tp(a.t)))); r
@@ -510,9 +532,8 @@ object kNormal {
     add(LLField(r2, a, RN(Ti(32), "0"), RN(Ti(32), "" + s)))
 
     t2 match {
-      case Ti(_) | Tu(_) | Tf | Td | Tp(_) =>
+      case Ti(_) | Tu(_) | Tf | Td | Tp(_) |_: TFun =>
         val r1 = genRL(t2); add(LLLoad(r1, r2)); r1
-      case _: TFun => r2
       case _ => r2
     }
   }
