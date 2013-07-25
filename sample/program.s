@@ -19,7 +19,7 @@ _main:                                  ## @main
 	testb	%al, %al
 	jne	LBB0_2
 ## BB#1:                                ## %ok15
-	leaq	L_.str1791(%rip), %rdi
+	leaq	L_.str1848(%rip), %rdi
 	callq	_glutGameModeString
 	callq	_glutEnterGameMode
 	jmp	LBB0_3
@@ -28,13 +28,13 @@ LBB0_2:                                 ## %else16
 	movq	(%rax), %rdi
 	callq	_glutCreateWindow
 LBB0_3:                                 ## %..leave
-	xorl	%edi, %edi
+	movl	_GLUT_RGBA(%rip), %edi
 	callq	_glutInitDisplayMode
-	movl	$3042, %edi             ## imm = 0xBE2
+	movl	_GL_BLEND(%rip), %edi
 	callq	_glEnable
-	movl	$2896, %edi             ## imm = 0xB50
+	movl	_GL_LIGHTING(%rip), %edi
 	callq	_glEnable
-	movl	$16384, %edi            ## imm = 0x4000
+	movl	_GL_LIGHT0(%rip), %edi
 	callq	_glEnable
 	leaq	_main_display(%rip), %rdi
 	callq	_glutDisplayFunc
@@ -78,8 +78,8 @@ _color:                                 ## @color
 	movss	%xmm0, 16(%rsp)
 	movss	24(%rsp), %xmm0
 	movss	%xmm0, 20(%rsp)
-	movl	$1032, %edi             ## imm = 0x408
-	movl	$4609, %esi             ## imm = 0x1201
+	movl	_GL_DIFFUSE(%rip), %esi
+	movl	_GL_FRONT_AND_BACK(%rip), %edi
 	callq	_glMaterialfv
 	movq	(%rbx), %rax
 	cmpq	40(%rsp), %rax
@@ -127,7 +127,7 @@ LCPI3_6:
 	.globl	_main_display
 	.align	4, 0x90
 _main_display:                          ## @main_display
-## BB#0:                                ## %leave83
+## BB#0:                                ## %leave84
 	pushq	%rbx
 	subq	$48, %rsp
 	movq	___stack_chk_guard@GOTPCREL(%rip), %rbx
@@ -135,14 +135,15 @@ _main_display:                          ## @main_display
 	movq	%rax, 40(%rsp)
 	movl	$640, 36(%rsp)          ## imm = 0x280
 	movl	$480, 32(%rsp)          ## imm = 0x1E0
-	movl	$16640, %edi            ## imm = 0x4100
+	movl	_GL_COLOR_BUFFER_BIT(%rip), %edi
+	orl	_GL_DEPTH_BUFFER_BIT(%rip), %edi
 	callq	_glClear
 	xorl	%edi, %edi
 	xorl	%esi, %esi
 	movl	$640, %edx              ## imm = 0x280
 	movl	$480, %ecx              ## imm = 0x1E0
 	callq	_glViewport
-	movl	$5889, %edi             ## imm = 0x1701
+	movl	_GL_PROJECTION(%rip), %edi
 	callq	_glMatrixMode
 	callq	_glLoadIdentity
 	movsd	LCPI3_0(%rip), %xmm0
@@ -174,14 +175,14 @@ _main_display:                          ## @main_display
 	cvtsd2ss	%xmm0, %xmm0
 	movss	%xmm0, 20(%rsp)
 	movl	$1065353216, 24(%rsp)   ## imm = 0x3F800000
-	movl	$16384, %edi            ## imm = 0x4000
-	movl	$4611, %esi             ## imm = 0x1203
+	movl	_GL_POSITION(%rip), %esi
+	movl	_GL_LIGHT0(%rip), %edi
 	callq	_glLightfv
-	movl	$5888, %edi             ## imm = 0x1700
+	movl	_GL_MODELVIEW(%rip), %edi
 	callq	_glMatrixMode
 	callq	_glLoadIdentity
-	movl	$770, %edi              ## imm = 0x302
-	movl	$1, %esi
+	movl	_GL_ONE(%rip), %esi
+	movl	_GL_SRC_ALPHA(%rip), %edi
 	callq	_glBlendFunc
 	movsd	LCPI3_6(%rip), %xmm2
 	movq	$0, (%rsp)
@@ -209,7 +210,7 @@ LBB3_2:                                 ## %CallStackCheckFailBlk
 	.globl	_Game_new
 	.align	4, 0x90
 _Game_new:                              ## @Game_new
-## BB#0:                                ## %leave166
+## BB#0:                                ## %leave168
 	movq	%rdi, -8(%rsp)
 	movl	$0, 32(%rdi)
 	movq	-8(%rsp), %rax
@@ -236,13 +237,13 @@ _Game_title:                            ## @Game_title
 	movl	16(%rax), %eax
 	testq	%rax, %rax
 	je	LBB5_2
-## BB#1:                                ## %ok213
+## BB#1:                                ## %ok215
 	movq	-8(%rsp), %rax
 	movl	$0, 12(%rax)
 	leaq	_Game_title_end(%rip), %rax
 	movq	-8(%rsp), %rcx
 	movq	%rax, 16(%rcx)
-LBB5_2:                                 ## %leave199
+LBB5_2:                                 ## %leave201
 	ret
 
 	.section	__TEXT,__literal8,8byte_literals
@@ -367,7 +368,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_1(%rip), %xmm2
 	xorps	%xmm3, %xmm3
 	callq	_glRotated
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movss	LCPI6_3(%rip), %xmm3
@@ -391,7 +392,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	xorps	%xmm0, %xmm0
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -415,7 +416,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_5(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -439,7 +440,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_5(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -463,7 +464,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_13(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -487,7 +488,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_15(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -511,7 +512,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_17(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -535,7 +536,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_19(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -559,7 +560,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_21(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -583,7 +584,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_21(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -607,7 +608,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_24(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -631,7 +632,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_26(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -655,7 +656,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_11(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -679,7 +680,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_8(%rip), %xmm1
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -703,7 +704,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_30(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -727,7 +728,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_35(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -751,7 +752,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_36(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -775,7 +776,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_32(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -799,7 +800,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_32(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -823,7 +824,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_41(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -847,7 +848,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_41(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -871,7 +872,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_45(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -895,7 +896,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_37(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -919,7 +920,7 @@ _Game_title_draw:                       ## @Game_title_draw
 	movsd	LCPI6_47(%rip), %xmm2
 	callq	_glVertex3d
 	callq	_glEnd
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI6_2(%rip), %xmm0
 	movaps	%xmm0, %xmm1
@@ -957,11 +958,11 @@ _Game_title_end:                        ## @Game_title_end
 	movl	12(%rax), %eax
 	cmpq	$61, %rax
 	jl	LBB7_2
-## BB#1:                                ## %ok929
+## BB#1:                                ## %ok931
 	movq	-8(%rsp), %rax
 	leaq	_Game_init(%rip), %rcx
 	movq	%rcx, 16(%rax)
-LBB7_2:                                 ## %leave915
+LBB7_2:                                 ## %leave917
 	ret
 
 	.globl	_Game_demo
@@ -981,7 +982,7 @@ _Game_ranking:                          ## @Game_ranking
 	.globl	_Game_init
 	.align	4, 0x90
 _Game_init:                             ## @Game_init
-## BB#0:                                ## %leave949
+## BB#0:                                ## %leave951
 	pushq	%rax
 	movq	%rdi, (%rsp)
 	movl	$0, 32(%rdi)
@@ -1011,11 +1012,11 @@ _Game_stageStart:                       ## @Game_stageStart
 	movl	12(%rdi), %eax
 	cmpq	$241, %rax
 	jl	LBB11_2
-## BB#1:                                ## %ok989
+## BB#1:                                ## %ok992
 	movq	(%rsp), %rax
 	leaq	_Game_game(%rip), %rcx
 	movq	%rcx, 16(%rax)
-LBB11_2:                                ## %leave988
+LBB11_2:                                ## %leave991
 	movq	(%rsp), %rdi
 	callq	_Game_game
 	popq	%rax
@@ -1031,10 +1032,10 @@ _Game_game:                             ## @Game_game
 	andq	$3, %rax
 	cmpq	$3, %rax
 	jne	LBB12_2
-## BB#1:                                ## %ok1012
+## BB#1:                                ## %ok1015
 	movq	(%rsp), %rax
 	addl	$10, 32(%rax)
-LBB12_2:                                ## %leave1011
+LBB12_2:                                ## %leave1014
 	movq	(%rsp), %rax
 	incl	12(%rax)
 	callq	_Ship_move
@@ -1067,7 +1068,7 @@ _Game_boss:                             ## @Game_boss
 	.globl	_Game_nextStage
 	.align	4, 0x90
 _Game_nextStage:                        ## @Game_nextStage
-## BB#0:                                ## %leave1059
+## BB#0:                                ## %leave1062
 	movq	%rdi, -8(%rsp)
 	incl	(%rdi)
 	leaq	_Game_stageStart(%rip), %rax
@@ -1104,52 +1105,42 @@ _downKey:                               ## @downKey
 	movl	%esi, -8(%rsp)
 	movl	%edx, -12(%rsp)
 	movb	-1(%rsp), %al
-	cmpb	$99, %al
-	ja	LBB20_3
-## BB#1:                                ## %entry
-	cmpb	$32, %al
-	jne	LBB20_9
-## BB#2:                                ## %switch10824
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$1, 16(%rax)
-	ret
-LBB20_3:                                ## %entry
-	addb	$-100, %al
-	cmpb	$3, %al
-	ja	LBB20_9
-## BB#4:                                ## %entry
-	movzbl	%al, %ecx
-	leaq	LJTI20_0(%rip), %rax
-	movslq	(%rax,%rcx,4), %rcx
-	addq	%rax, %rcx
-	jmpq	*%rcx
-LBB20_7:                                ## %switch10822
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$1, 8(%rax)
-	ret
-LBB20_5:                                ## %switch10820
+	cmpb	%al, _GLUT_KEY_UP(%rip)
+	jne	LBB20_1
+## BB#6:                                ## %switch1085_0
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, (%rax)
 	ret
-LBB20_8:                                ## %switch10823
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$1, 12(%rax)
-LBB20_9:                                ## %leave1080
-	ret
-LBB20_6:                                ## %switch10821
+LBB20_1:                                ## %switch1085_case1
+	cmpb	%al, _GLUT_KEY_DOWN(%rip)
+	jne	LBB20_2
+## BB#7:                                ## %switch1085_1
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$1, 4(%rax)
 	ret
-	.align	2, 0x90
-L20_0_set_7 = LBB20_7-LJTI20_0
-L20_0_set_5 = LBB20_5-LJTI20_0
-L20_0_set_8 = LBB20_8-LJTI20_0
-L20_0_set_6 = LBB20_6-LJTI20_0
-LJTI20_0:
-	.long	L20_0_set_7
-	.long	L20_0_set_5
-	.long	L20_0_set_8
-	.long	L20_0_set_6
+LBB20_2:                                ## %switch1085_case2
+	cmpb	%al, _GLUT_KEY_LEFT(%rip)
+	jne	LBB20_3
+## BB#8:                                ## %switch1085_2
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$1, 8(%rax)
+	ret
+LBB20_3:                                ## %switch1085_case3
+	cmpb	%al, _GLUT_KEY_RIGHT(%rip)
+	jne	LBB20_4
+## BB#9:                                ## %switch1085_3
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$1, 12(%rax)
+	jmp	LBB20_10
+LBB20_4:                                ## %switch1085_case4
+	cmpb	%al, _GLUT_KEY_SPACE(%rip)
+	jne	LBB20_10
+## BB#5:                                ## %switch1085_4
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$1, 16(%rax)
+	ret
+LBB20_10:                               ## %leave1083
+	ret
 
 	.globl	_upKey
 	.align	4, 0x90
@@ -1160,67 +1151,56 @@ _upKey:                                 ## @upKey
 	movl	%esi, 16(%rsp)
 	movl	%edx, 12(%rsp)
 	movb	23(%rsp), %al
-	cmpb	$99, %al
-	ja	LBB21_4
-## BB#1:                                ## %entry
-	cmpb	$27, %al
-	jne	LBB21_2
-## BB#10:                               ## %switch11105
-	callq	_glutLeaveGameMode
-	xorl	%edi, %edi
-	callq	_exit
-	jmp	LBB21_11
-LBB21_4:                                ## %entry
-	addb	$-100, %al
-	cmpb	$3, %al
-	ja	LBB21_11
-## BB#5:                                ## %entry
-	movzbl	%al, %ecx
-	leaq	LJTI21_0(%rip), %rax
-	movslq	(%rax,%rcx,4), %rcx
-	addq	%rax, %rcx
-	jmpq	*%rcx
-LBB21_8:                                ## %switch11102
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$0, 8(%rax)
-	addq	$24, %rsp
-	ret
-LBB21_2:                                ## %entry
-	cmpb	$32, %al
-	jne	LBB21_11
-## BB#3:                                ## %switch11104
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$0, 16(%rax)
-	addq	$24, %rsp
-	ret
-LBB21_11:                               ## %leave1108
-	addq	$24, %rsp
-	ret
-LBB21_6:                                ## %switch11100
+	cmpb	%al, _GLUT_KEY_UP(%rip)
+	jne	LBB21_1
+## BB#7:                                ## %switch1118_0
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, (%rax)
 	addq	$24, %rsp
 	ret
-LBB21_9:                                ## %switch11103
-	movq	_key@GOTPCREL(%rip), %rax
-	movl	$0, 12(%rax)
-	addq	$24, %rsp
-	ret
-LBB21_7:                                ## %switch11101
+LBB21_1:                                ## %switch1118_case1
+	cmpb	%al, _GLUT_KEY_DOWN(%rip)
+	jne	LBB21_2
+## BB#8:                                ## %switch1118_1
 	movq	_key@GOTPCREL(%rip), %rax
 	movl	$0, 4(%rax)
 	addq	$24, %rsp
 	ret
-	.align	2, 0x90
-L21_0_set_8 = LBB21_8-LJTI21_0
-L21_0_set_6 = LBB21_6-LJTI21_0
-L21_0_set_9 = LBB21_9-LJTI21_0
-L21_0_set_7 = LBB21_7-LJTI21_0
-LJTI21_0:
-	.long	L21_0_set_8
-	.long	L21_0_set_6
-	.long	L21_0_set_9
-	.long	L21_0_set_7
+LBB21_2:                                ## %switch1118_case2
+	cmpb	%al, _GLUT_KEY_LEFT(%rip)
+	jne	LBB21_3
+## BB#9:                                ## %switch1118_2
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$0, 8(%rax)
+	addq	$24, %rsp
+	ret
+LBB21_3:                                ## %switch1118_case3
+	cmpb	%al, _GLUT_KEY_RIGHT(%rip)
+	jne	LBB21_4
+## BB#10:                               ## %switch1118_3
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$0, 12(%rax)
+	addq	$24, %rsp
+	ret
+LBB21_4:                                ## %switch1118_case4
+	cmpb	%al, _GLUT_KEY_SPACE(%rip)
+	jne	LBB21_5
+## BB#11:                               ## %switch1118_4
+	movq	_key@GOTPCREL(%rip), %rax
+	movl	$0, 16(%rax)
+	jmp	LBB21_12
+LBB21_5:                                ## %switch1118_case5
+	cmpb	$27, %al
+	jne	LBB21_12
+## BB#6:                                ## %switch1118_5
+	callq	_glutLeaveGameMode
+	xorl	%edi, %edi
+	callq	_exit
+	addq	$24, %rsp
+	ret
+LBB21_12:                               ## %leave1116
+	addq	$24, %rsp
+	ret
 
 	.section	__TEXT,__literal8,8byte_literals
 	.align	3
@@ -1246,39 +1226,39 @@ _Ship_move:                             ## @Ship_move
 	movl	8(%rax), %ecx
 	testq	%rcx, %rcx
 	je	LBB22_2
-## BB#1:                                ## %ok1143
+## BB#1:                                ## %ok1157
 	movq	_ship@GOTPCREL(%rip), %rcx
 	movsd	(%rcx), %xmm0
 	subsd	-8(%rbp), %xmm0
 	movsd	%xmm0, (%rcx)
-LBB22_2:                                ## %endif1146
+LBB22_2:                                ## %endif1160
 	movl	12(%rax), %ecx
 	testq	%rcx, %rcx
 	je	LBB22_4
-## BB#3:                                ## %ok1156
+## BB#3:                                ## %ok1170
 	movq	_ship@GOTPCREL(%rip), %rcx
 	movsd	(%rcx), %xmm0
 	addsd	-8(%rbp), %xmm0
 	movsd	%xmm0, (%rcx)
-LBB22_4:                                ## %endif1159
+LBB22_4:                                ## %endif1173
 	movl	(%rax), %ecx
 	testq	%rcx, %rcx
 	je	LBB22_6
-## BB#5:                                ## %ok1169
+## BB#5:                                ## %ok1183
 	movq	_ship@GOTPCREL(%rip), %rcx
 	movsd	8(%rcx), %xmm0
 	addsd	-8(%rbp), %xmm0
 	movsd	%xmm0, 8(%rcx)
-LBB22_6:                                ## %endif1172
+LBB22_6:                                ## %endif1186
 	movl	4(%rax), %eax
 	testq	%rax, %rax
 	je	LBB22_8
-## BB#7:                                ## %ok1182
+## BB#7:                                ## %ok1196
 	movq	_ship@GOTPCREL(%rip), %rax
 	movsd	8(%rax), %xmm0
 	subsd	-8(%rbp), %xmm0
 	movsd	%xmm0, 8(%rax)
-LBB22_8:                                ## %endif1185
+LBB22_8:                                ## %endif1199
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rcx
 	movq	%rcx, %rsp
@@ -1293,30 +1273,30 @@ LBB22_8:                                ## %endif1185
 	movsd	(%rax), %xmm0
 	ucomisd	LCPI22_0(%rip), %xmm0
 	jbe	LBB22_10
-## BB#9:                                ## %ok1197
+## BB#9:                                ## %ok1211
 	movq	%rcx, (%rax)
-LBB22_10:                               ## %endif1200
+LBB22_10:                               ## %endif1214
 	movsd	LCPI22_1(%rip), %xmm0
 	ucomisd	(%rax), %xmm0
 	jbe	LBB22_12
-## BB#11:                               ## %ok1210
+## BB#11:                               ## %ok1224
 	movabsq	$-4579386764849840128, %rcx ## imm = 0xC072C00000000000
 	movq	%rcx, (%rax)
-LBB22_12:                               ## %endif1213
+LBB22_12:                               ## %endif1227
 	movsd	8(%rax), %xmm0
 	ucomisd	LCPI22_2(%rip), %xmm0
 	jbe	LBB22_14
-## BB#13:                               ## %ok1224
+## BB#13:                               ## %ok1238
 	movabsq	$4642648265865560064, %rcx ## imm = 0x406E000000000000
 	movq	%rcx, 8(%rax)
-LBB22_14:                               ## %endif1227
+LBB22_14:                               ## %endif1241
 	movsd	LCPI22_3(%rip), %xmm0
 	ucomisd	8(%rax), %xmm0
 	jbe	LBB22_16
-## BB#15:                               ## %ok1237
+## BB#15:                               ## %ok1251
 	movabsq	$-4580723770989215744, %rcx ## imm = 0xC06E000000000000
 	movq	%rcx, 8(%rax)
-LBB22_16:                               ## %leave1141
+LBB22_16:                               ## %leave1155
 	movq	%rbp, %rsp
 	popq	%rbp
 	ret
@@ -1335,7 +1315,7 @@ LCPI23_2:
 	.globl	_Ship_draw
 	.align	4, 0x90
 _Ship_draw:                             ## @Ship_draw
-## BB#0:                                ## %leave1251
+## BB#0:                                ## %leave1265
 	subq	$24, %rsp
 	callq	_glPushMatrix
 	movq	_ship@GOTPCREL(%rip), %rax
@@ -1347,7 +1327,7 @@ _Ship_draw:                             ## @Ship_draw
 	movq	%rax, 16(%rsp)
 	movabsq	$4629137466983448576, %rax ## imm = 0x403E000000000000
 	movq	%rax, 8(%rsp)
-	movl	$9, %edi
+	movl	_GL_POLYGON(%rip), %edi
 	callq	_glBegin
 	movss	LCPI23_0(%rip), %xmm1
 	movss	LCPI23_1(%rip), %xmm0
@@ -1390,133 +1370,141 @@ _Stage_init:                            ## @Stage_init
 	movq	%rdi, -8(%rsp)
 	movq	_game@GOTPCREL(%rip), %rax
 	movl	(%rax), %eax
-	decl	%eax
-	cmpl	$18, %eax
-	ja	LBB24_22
-## BB#1:                                ## %entry
-	leaq	LJTI24_0(%rip), %rcx
-	movslq	(%rcx,%rax,4), %rax
-	addq	%rcx, %rax
-	jmpq	*%rax
-LBB24_2:                                ## %switch12970
+	cmpl	$1, %eax
+	jne	LBB24_1
+## BB#20:                               ## %switch1311_0
 	movq	-8(%rsp), %rax
 	leaq	_Stage_1(%rip), %rcx
-	jmp	LBB24_21
-LBB24_3:                                ## %switch12971
+	jmp	LBB24_38
+LBB24_1:                                ## %switch1311_case1
+	cmpl	$2, %eax
+	jne	LBB24_2
+## BB#21:                               ## %switch1311_1
 	movq	-8(%rsp), %rax
 	leaq	_Stage_2(%rip), %rcx
-	jmp	LBB24_21
-LBB24_4:                                ## %switch12972
+	jmp	LBB24_38
+LBB24_2:                                ## %switch1311_case2
+	cmpl	$3, %eax
+	jne	LBB24_3
+## BB#22:                               ## %switch1311_2
 	movq	-8(%rsp), %rax
 	leaq	_Stage_3(%rip), %rcx
-	jmp	LBB24_21
-LBB24_5:                                ## %switch12973
+	jmp	LBB24_38
+LBB24_3:                                ## %switch1311_case3
+	cmpl	$4, %eax
+	jne	LBB24_4
+## BB#23:                               ## %switch1311_3
 	movq	-8(%rsp), %rax
 	leaq	_Stage_4(%rip), %rcx
-	jmp	LBB24_21
-LBB24_6:                                ## %switch12974
+	jmp	LBB24_38
+LBB24_4:                                ## %switch1311_case4
+	cmpl	$5, %eax
+	jne	LBB24_5
+## BB#24:                               ## %switch1311_4
 	movq	-8(%rsp), %rax
 	leaq	_Stage_5(%rip), %rcx
-	jmp	LBB24_21
-LBB24_7:                                ## %switch12975
+	jmp	LBB24_38
+LBB24_5:                                ## %switch1311_case5
+	cmpl	$6, %eax
+	jne	LBB24_6
+## BB#25:                               ## %switch1311_5
 	movq	-8(%rsp), %rax
 	leaq	_Stage_6(%rip), %rcx
-	jmp	LBB24_21
-LBB24_8:                                ## %switch12976
+	jmp	LBB24_38
+LBB24_6:                                ## %switch1311_case6
+	cmpl	$7, %eax
+	jne	LBB24_7
+## BB#26:                               ## %switch1311_6
 	movq	-8(%rsp), %rax
 	leaq	_Stage_7(%rip), %rcx
-	jmp	LBB24_21
-LBB24_9:                                ## %switch12977
+	jmp	LBB24_38
+LBB24_7:                                ## %switch1311_case7
+	cmpl	$8, %eax
+	jne	LBB24_8
+## BB#27:                               ## %switch1311_7
 	movq	-8(%rsp), %rax
 	leaq	_Stage_8(%rip), %rcx
-	jmp	LBB24_21
-LBB24_10:                               ## %switch12978
+	jmp	LBB24_38
+LBB24_8:                                ## %switch1311_case8
+	cmpl	$9, %eax
+	jne	LBB24_9
+## BB#28:                               ## %switch1311_8
 	movq	-8(%rsp), %rax
 	leaq	_Stage_9(%rip), %rcx
-	jmp	LBB24_21
-LBB24_11:                               ## %switch12979
+	jmp	LBB24_38
+LBB24_9:                                ## %switch1311_case9
+	cmpl	$10, %eax
+	jne	LBB24_10
+## BB#29:                               ## %switch1311_9
 	movq	-8(%rsp), %rax
 	leaq	_Stage_10(%rip), %rcx
-	jmp	LBB24_21
-LBB24_12:                               ## %switch129710
+	jmp	LBB24_38
+LBB24_10:                               ## %switch1311_case10
+	cmpl	$11, %eax
+	jne	LBB24_11
+## BB#30:                               ## %switch1311_10
 	movq	-8(%rsp), %rax
 	leaq	_Stage_11(%rip), %rcx
-	jmp	LBB24_21
-LBB24_13:                               ## %switch129711
+	jmp	LBB24_38
+LBB24_11:                               ## %switch1311_case11
+	cmpl	$12, %eax
+	jne	LBB24_12
+## BB#31:                               ## %switch1311_11
 	movq	-8(%rsp), %rax
 	leaq	_Stage_12(%rip), %rcx
-	jmp	LBB24_21
-LBB24_14:                               ## %switch129712
+	jmp	LBB24_38
+LBB24_12:                               ## %switch1311_case12
+	cmpl	$13, %eax
+	jne	LBB24_13
+## BB#32:                               ## %switch1311_12
 	movq	-8(%rsp), %rax
 	leaq	_Stage_13(%rip), %rcx
-	jmp	LBB24_21
-LBB24_15:                               ## %switch129713
+	jmp	LBB24_38
+LBB24_13:                               ## %switch1311_case13
+	cmpl	$14, %eax
+	jne	LBB24_14
+## BB#33:                               ## %switch1311_13
 	movq	-8(%rsp), %rax
 	leaq	_Stage_14(%rip), %rcx
-	jmp	LBB24_21
-LBB24_16:                               ## %switch129714
+	jmp	LBB24_38
+LBB24_14:                               ## %switch1311_case14
+	cmpl	$15, %eax
+	jne	LBB24_15
+## BB#34:                               ## %switch1311_14
 	movq	-8(%rsp), %rax
 	leaq	_Stage_15(%rip), %rcx
-	jmp	LBB24_21
-LBB24_17:                               ## %switch129715
+	jmp	LBB24_38
+LBB24_15:                               ## %switch1311_case15
+	cmpl	$16, %eax
+	jne	LBB24_16
+## BB#35:                               ## %switch1311_15
 	movq	-8(%rsp), %rax
 	leaq	_Stage_16(%rip), %rcx
-	jmp	LBB24_21
-LBB24_18:                               ## %switch129716
+	jmp	LBB24_38
+LBB24_16:                               ## %switch1311_case16
+	cmpl	$17, %eax
+	jne	LBB24_17
+## BB#36:                               ## %switch1311_16
 	movq	-8(%rsp), %rax
 	leaq	_Stage_17(%rip), %rcx
-	jmp	LBB24_21
-LBB24_19:                               ## %switch129717
+	jmp	LBB24_38
+LBB24_17:                               ## %switch1311_case17
+	cmpl	$18, %eax
+	jne	LBB24_18
+## BB#37:                               ## %switch1311_17
 	movq	-8(%rsp), %rax
 	leaq	_Stage_18(%rip), %rcx
-	jmp	LBB24_21
-LBB24_20:                               ## %switch129718
+	jmp	LBB24_38
+LBB24_18:                               ## %switch1311_case18
+	cmpl	$19, %eax
+	jne	LBB24_39
+## BB#19:                               ## %switch1311_18
 	movq	-8(%rsp), %rax
 	leaq	_Stage_ending(%rip), %rcx
-LBB24_21:                               ## %switch129718
+LBB24_38:                               ## %switch1311_18
 	movq	%rcx, (%rax)
-LBB24_22:                               ## %leave1294
+LBB24_39:                               ## %leave1308
 	ret
-	.align	2, 0x90
-L24_0_set_2 = LBB24_2-LJTI24_0
-L24_0_set_3 = LBB24_3-LJTI24_0
-L24_0_set_4 = LBB24_4-LJTI24_0
-L24_0_set_5 = LBB24_5-LJTI24_0
-L24_0_set_6 = LBB24_6-LJTI24_0
-L24_0_set_7 = LBB24_7-LJTI24_0
-L24_0_set_8 = LBB24_8-LJTI24_0
-L24_0_set_9 = LBB24_9-LJTI24_0
-L24_0_set_10 = LBB24_10-LJTI24_0
-L24_0_set_11 = LBB24_11-LJTI24_0
-L24_0_set_12 = LBB24_12-LJTI24_0
-L24_0_set_13 = LBB24_13-LJTI24_0
-L24_0_set_14 = LBB24_14-LJTI24_0
-L24_0_set_15 = LBB24_15-LJTI24_0
-L24_0_set_16 = LBB24_16-LJTI24_0
-L24_0_set_17 = LBB24_17-LJTI24_0
-L24_0_set_18 = LBB24_18-LJTI24_0
-L24_0_set_19 = LBB24_19-LJTI24_0
-L24_0_set_20 = LBB24_20-LJTI24_0
-LJTI24_0:
-	.long	L24_0_set_2
-	.long	L24_0_set_3
-	.long	L24_0_set_4
-	.long	L24_0_set_5
-	.long	L24_0_set_6
-	.long	L24_0_set_7
-	.long	L24_0_set_8
-	.long	L24_0_set_9
-	.long	L24_0_set_10
-	.long	L24_0_set_11
-	.long	L24_0_set_12
-	.long	L24_0_set_13
-	.long	L24_0_set_14
-	.long	L24_0_set_15
-	.long	L24_0_set_16
-	.long	L24_0_set_17
-	.long	L24_0_set_18
-	.long	L24_0_set_19
-	.long	L24_0_set_20
 
 	.globl	_ptn7
 	.align	4, 0x90
@@ -1609,309 +1597,250 @@ _Stage_1:                               ## @Stage_1
 	pushq	%rax
 	movq	%rdi, (%rsp)
 	movl	8(%rdi), %eax
-	cmpl	$3539, %eax             ## imm = 0xDD3
-	ja	LBB39_50
-## BB#1:                                ## %entry
-	cmpl	$2939, %eax             ## imm = 0xB7B
-	ja	LBB39_49
-## BB#2:                                ## %entry
-	cmpl	$659, %eax              ## imm = 0x293
-	ja	LBB39_16
-## BB#3:                                ## %entry
-	cmpl	$303, %eax              ## imm = 0x12F
-	ja	LBB39_6
-## BB#4:                                ## %entry
 	cmpl	$300, %eax              ## imm = 0x12C
-	jne	LBB39_52
-## BB#5:                                ## %switch14320
+	jne	LBB39_1
+## BB#25:                               ## %switch1465_0
 	callq	_ptn7
 	popq	%rax
 	ret
-LBB39_50:                               ## %entry
-	cmpl	$3540, %eax             ## imm = 0xDD4
-	jne	LBB39_52
-## BB#51:                               ## %switch143223
-	callq	_boss1
-	jmp	LBB39_52
-LBB39_49:                               ## %entry
-	cmpl	$2940, %eax             ## imm = 0xB7C
-	je	LBB39_46
-	jmp	LBB39_52
-LBB39_16:                               ## %entry
-	cmpl	$2519, %eax             ## imm = 0x9D7
-	ja	LBB39_39
-## BB#17:                               ## %entry
-	cmpl	$2099, %eax             ## imm = 0x833
-	ja	LBB39_47
-## BB#18:                               ## %entry
-	cmpl	$1529, %eax             ## imm = 0x5F9
-	ja	LBB39_45
-## BB#19:                               ## %entry
-	cmpl	$1079, %eax             ## imm = 0x437
-	ja	LBB39_24
-## BB#20:                               ## %entry
-	cmpl	$660, %eax              ## imm = 0x294
-	je	LBB39_43
-## BB#21:                               ## %entry
-	cmpl	$665, %eax              ## imm = 0x299
-	jne	LBB39_22
-## BB#44:                               ## %switch14327
-	callq	_ptn2c
-	popq	%rax
-	ret
-LBB39_6:                                ## %entry
-	cmpl	$307, %eax              ## imm = 0x133
-	ja	LBB39_9
-## BB#7:                                ## %entry
+LBB39_1:                                ## %switch1465_case1
 	cmpl	$304, %eax              ## imm = 0x130
-	jne	LBB39_52
-## BB#8:                                ## %switch14321
+	je	LBB39_26
+## BB#2:                                ## %switch1465_case2
+	cmpl	$308, %eax              ## imm = 0x134
+	je	LBB39_26
+## BB#3:                                ## %switch1465_case3
+	cmpl	$312, %eax              ## imm = 0x138
+	je	LBB39_26
+## BB#4:                                ## %switch1465_case4
+	cmpl	$316, %eax              ## imm = 0x13C
+	je	LBB39_26
+## BB#5:                                ## %switch1465_case5
+	cmpl	$320, %eax              ## imm = 0x140
+	jne	LBB39_6
+LBB39_26:                               ## %switch1465_5
 	callq	_ptn1
 	popq	%rax
 	ret
-LBB39_39:                               ## %entry
+LBB39_6:                                ## %switch1465_case6
+	cmpl	$660, %eax              ## imm = 0x294
+	jne	LBB39_7
+## BB#27:                               ## %switch1465_6
+	callq	_ptn2r
+	popq	%rax
+	ret
+LBB39_7:                                ## %switch1465_case7
+	cmpl	$665, %eax              ## imm = 0x299
+	jne	LBB39_8
+## BB#28:                               ## %switch1465_7
+	callq	_ptn2c
+	popq	%rax
+	ret
+LBB39_8:                                ## %switch1465_case8
+	cmpl	$670, %eax              ## imm = 0x29E
+	jne	LBB39_9
+## BB#29:                               ## %switch1465_8
+	callq	_ptn2l
+	popq	%rax
+	ret
+LBB39_9:                                ## %switch1465_case9
+	cmpl	$1080, %eax             ## imm = 0x438
+	je	LBB39_30
+## BB#10:                               ## %switch1465_case10
+	cmpl	$1084, %eax             ## imm = 0x43C
+	je	LBB39_30
+## BB#11:                               ## %switch1465_case11
+	cmpl	$1088, %eax             ## imm = 0x440
+	je	LBB39_30
+## BB#12:                               ## %switch1465_case12
+	cmpl	$1092, %eax             ## imm = 0x444
+	jne	LBB39_13
+LBB39_30:                               ## %switch1465_12
+	callq	_ptn3r
+	popq	%rax
+	ret
+LBB39_13:                               ## %switch1465_case13
+	cmpl	$1200, %eax             ## imm = 0x4B0
+	je	LBB39_31
+## BB#14:                               ## %switch1465_case14
+	cmpl	$1204, %eax             ## imm = 0x4B4
+	je	LBB39_31
+## BB#15:                               ## %switch1465_case15
+	cmpl	$1208, %eax             ## imm = 0x4B8
+	je	LBB39_31
+## BB#16:                               ## %switch1465_case16
+	cmpl	$1212, %eax             ## imm = 0x4BC
+	jne	LBB39_17
+LBB39_31:                               ## %switch1465_16
+	callq	_ptn3l
+	popq	%rax
+	ret
+LBB39_17:                               ## %switch1465_case17
+	cmpl	$1530, %eax             ## imm = 0x5FA
+	je	LBB39_34
+## BB#18:                               ## %switch1465_case18
+	cmpl	$2100, %eax             ## imm = 0x834
+	jne	LBB39_19
+## BB#32:                               ## %switch1465_18
+	callq	_ptn_hatena
+	popq	%rax
+	ret
+LBB39_19:                               ## %switch1465_case19
 	cmpl	$2520, %eax             ## imm = 0x9D8
-	je	LBB39_42
-## BB#40:                               ## %entry
+	je	LBB39_33
+## BB#20:                               ## %switch1465_case20
 	cmpl	$2525, %eax             ## imm = 0x9DD
-	je	LBB39_42
-## BB#41:                               ## %entry
+	je	LBB39_33
+## BB#21:                               ## %switch1465_case21
 	cmpl	$2530, %eax             ## imm = 0x9E2
-	jne	LBB39_52
-LBB39_42:                               ## %switch143219
+	jne	LBB39_22
+LBB39_33:                               ## %switch1465_19
 	callq	_ptn4l
 	callq	_ptn4r
 	popq	%rax
 	ret
-LBB39_47:                               ## %entry
-	cmpl	$2100, %eax             ## imm = 0x834
-	jne	LBB39_52
-## BB#48:                               ## %switch143218
-	callq	_ptn_hatena
-	popq	%rax
-	ret
-LBB39_9:                                ## %entry
-	cmpl	$311, %eax              ## imm = 0x137
-	ja	LBB39_12
-## BB#10:                               ## %entry
-	cmpl	$308, %eax              ## imm = 0x134
-	jne	LBB39_52
-	jmp	LBB39_11
-LBB39_45:                               ## %entry
-	cmpl	$1530, %eax             ## imm = 0x5FA
-	jne	LBB39_52
-LBB39_46:                               ## %switch143217
+LBB39_22:                               ## %switch1465_case22
+	cmpl	$2940, %eax             ## imm = 0xB7C
+	jne	LBB39_23
+LBB39_34:                               ## %switch1465_17
 	callq	_tmsu
 	callq	_tmsl
 	callq	_tmsr
+	jmp	LBB39_35
+LBB39_23:                               ## %switch1465_case23
+	cmpl	$3540, %eax             ## imm = 0xDD4
+	jne	LBB39_35
+## BB#24:                               ## %switch1465_23
+	callq	_boss1
 	popq	%rax
 	ret
-LBB39_12:                               ## %entry
-	cmpl	$312, %eax              ## imm = 0x138
-	je	LBB39_11
-## BB#13:                               ## %entry
-	cmpl	$316, %eax              ## imm = 0x13C
-	je	LBB39_15
-## BB#14:                               ## %entry
-	cmpl	$320, %eax              ## imm = 0x140
-	jne	LBB39_52
-LBB39_15:                               ## %switch14325
-	callq	_ptn1
-	popq	%rax
-	ret
-LBB39_11:                               ## %switch14323
-	callq	_ptn1
-	popq	%rax
-	ret
-LBB39_24:                               ## %entry
-	cmpl	$1199, %eax             ## imm = 0x4AF
-	ja	LBB39_32
-## BB#25:                               ## %entry
-	cmpl	$1083, %eax             ## imm = 0x43B
-	ja	LBB39_28
-## BB#26:                               ## %entry
-	cmpl	$1080, %eax             ## imm = 0x438
-	jne	LBB39_52
-	jmp	LBB39_27
-LBB39_32:                               ## %entry
-	cmpl	$1203, %eax             ## imm = 0x4B3
-	ja	LBB39_35
-## BB#33:                               ## %entry
-	cmpl	$1200, %eax             ## imm = 0x4B0
-	jne	LBB39_52
-	jmp	LBB39_34
-LBB39_43:                               ## %switch14326
-	callq	_ptn2r
-	popq	%rax
-	ret
-LBB39_22:                               ## %entry
-	cmpl	$670, %eax              ## imm = 0x29E
-	jne	LBB39_52
-## BB#23:                               ## %switch14328
-	callq	_ptn2l
-	popq	%rax
-	ret
-LBB39_28:                               ## %entry
-	cmpl	$1084, %eax             ## imm = 0x43C
-	je	LBB39_27
-## BB#29:                               ## %entry
-	cmpl	$1088, %eax             ## imm = 0x440
-	je	LBB39_31
-## BB#30:                               ## %entry
-	cmpl	$1092, %eax             ## imm = 0x444
-	jne	LBB39_52
-LBB39_31:                               ## %switch143212
-	callq	_ptn3r
-	popq	%rax
-	ret
-LBB39_35:                               ## %entry
-	cmpl	$1204, %eax             ## imm = 0x4B4
-	je	LBB39_34
-## BB#36:                               ## %entry
-	cmpl	$1208, %eax             ## imm = 0x4B8
-	je	LBB39_38
-## BB#37:                               ## %entry
-	cmpl	$1212, %eax             ## imm = 0x4BC
-	jne	LBB39_52
-LBB39_38:                               ## %switch143216
-	callq	_ptn3l
-	popq	%rax
-	ret
-LBB39_52:                               ## %leave1426
-	popq	%rax
-	ret
-LBB39_27:                               ## %switch143210
-	callq	_ptn3r
-	popq	%rax
-	ret
-LBB39_34:                               ## %switch143214
-	callq	_ptn3l
+LBB39_35:                               ## %leave1459
 	popq	%rax
 	ret
 
 	.globl	_Stage_2
 	.align	4, 0x90
 _Stage_2:                               ## @Stage_2
-## BB#0:                                ## %leave1664
+## BB#0:                                ## %leave1721
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_3
 	.align	4, 0x90
 _Stage_3:                               ## @Stage_3
-## BB#0:                                ## %leave1671
+## BB#0:                                ## %leave1728
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_4
 	.align	4, 0x90
 _Stage_4:                               ## @Stage_4
-## BB#0:                                ## %leave1678
+## BB#0:                                ## %leave1735
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_5
 	.align	4, 0x90
 _Stage_5:                               ## @Stage_5
-## BB#0:                                ## %leave1685
+## BB#0:                                ## %leave1742
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_6
 	.align	4, 0x90
 _Stage_6:                               ## @Stage_6
-## BB#0:                                ## %leave1692
+## BB#0:                                ## %leave1749
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_7
 	.align	4, 0x90
 _Stage_7:                               ## @Stage_7
-## BB#0:                                ## %leave1699
+## BB#0:                                ## %leave1756
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_8
 	.align	4, 0x90
 _Stage_8:                               ## @Stage_8
-## BB#0:                                ## %leave1706
+## BB#0:                                ## %leave1763
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_9
 	.align	4, 0x90
 _Stage_9:                               ## @Stage_9
-## BB#0:                                ## %leave1713
+## BB#0:                                ## %leave1770
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_10
 	.align	4, 0x90
 _Stage_10:                              ## @Stage_10
-## BB#0:                                ## %leave1720
+## BB#0:                                ## %leave1777
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_11
 	.align	4, 0x90
 _Stage_11:                              ## @Stage_11
-## BB#0:                                ## %leave1727
+## BB#0:                                ## %leave1784
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_12
 	.align	4, 0x90
 _Stage_12:                              ## @Stage_12
-## BB#0:                                ## %leave1734
+## BB#0:                                ## %leave1791
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_13
 	.align	4, 0x90
 _Stage_13:                              ## @Stage_13
-## BB#0:                                ## %leave1741
+## BB#0:                                ## %leave1798
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_14
 	.align	4, 0x90
 _Stage_14:                              ## @Stage_14
-## BB#0:                                ## %leave1748
+## BB#0:                                ## %leave1805
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_15
 	.align	4, 0x90
 _Stage_15:                              ## @Stage_15
-## BB#0:                                ## %leave1755
+## BB#0:                                ## %leave1812
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_16
 	.align	4, 0x90
 _Stage_16:                              ## @Stage_16
-## BB#0:                                ## %leave1762
+## BB#0:                                ## %leave1819
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_17
 	.align	4, 0x90
 _Stage_17:                              ## @Stage_17
-## BB#0:                                ## %leave1769
+## BB#0:                                ## %leave1826
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_18
 	.align	4, 0x90
 _Stage_18:                              ## @Stage_18
-## BB#0:                                ## %leave1776
+## BB#0:                                ## %leave1833
 	movq	%rdi, -8(%rsp)
 	ret
 
 	.globl	_Stage_ending
 	.align	4, 0x90
 _Stage_ending:                          ## @Stage_ending
-## BB#0:                                ## %leave1783
+## BB#0:                                ## %leave1840
 	movq	%rdi, -8(%rsp)
 	ret
 
@@ -2036,7 +1965,7 @@ _GL_FRONT_AND_BACK:
 	.globl	_fullscreen             ## @fullscreen
 .zerofill __DATA,__common,_fullscreen,4,2
 	.section	__TEXT,__const
-L_.str1791:                             ## @.str1791
+L_.str1848:                             ## @.str1848
 	.asciz	 "640x480:32@60"
 
 	.comm	_game,40,4              ## @game

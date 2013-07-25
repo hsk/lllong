@@ -1,77 +1,88 @@
-%.struct1 = type { i32, i32, i32, i32, void(%.struct1*)*, void()*, i32 }
-%.struct2 = type { i32, i32, i32, i32, i32 }
-%.struct3 = type { double, double }
-%.struct4 = type { void(%.struct4*)*, i32 }
+%.struct4 = type { double, double, i32, double, double, double, void(%.struct5*)*, void(%.struct5*)*, i32, double }
+%.struct5 = type { double, double, i32, double, double, double, void(%.struct5*)*, void(%.struct5*)*, i32, double }
+%.struct10 = type { double, double, i32, double, double, double }
+%.struct9 = type { double, double, i32, double, double }
+%.struct7 = type { double, double, i32, double, double, double }
+%.struct8 = type { double, double, i32, double, i32, i32 }
+%.struct2 = type { i32, i32, i32, i32, i32, i32 }
+%.struct3 = type { double, double, i32, double, i32, i32 }
+%.struct6 = type { double, double, i32, double, double }
 declare i32 @printf(i8*, ...) nounwind
 declare void @glutKeyboardFunc(void(i8, i32, i32)*) nounwind
-declare void @Stage_14(%.struct4*) nounwind
-declare void @Stage_15(%.struct4*) nounwind
-declare void @Ship_move() nounwind
-declare void @Stage_11(%.struct4*) nounwind
+declare double @Enemy_moveBody(%.struct5*) nounwind
+@GLUT_NUMBER = external global i32
+declare void @Ship_move(%.struct8*) nounwind
+@false = external global i32
+declare i32 @Shot_move(%.struct10*) nounwind
+@Shot = external global %.struct7
 declare void @print_f(float) nounwind
+declare double @random() nounwind
 @GL_ONE_MINUS_SRC_ALPHA = external global i32
 @GL_LIGHT0 = external global i32
 @GL_DIFFUSE = external global i32
+declare void @Enemy_moveWait(%.struct5*) nounwind
 declare void @glColor3d(double, double, double) nounwind
-declare void @tmsu() nounwind
+@enemiesCnt = external global i32
+declare void @addParticle(double, double, double) nounwind
 declare void @print_b(i8) nounwind
-declare void @Game_boss(%.struct1*) nounwind
-declare void @Game_new(%.struct1*) nounwind
+@bullets = external global [50 x %.struct9*]
 @GLUT_DEPTH = external global i32
-declare void @Stage_2(%.struct4*) nounwind
+declare void @addEnemy(double, double, double) nounwind
+declare void @Shot_draw(%.struct10*) nounwind
 declare void @glutSwapBuffers() nounwind
 @GLUT_RGBA = external global i32
 @GL_PROJECTION = external global i32
 @GLUT_KEY_SPACE = external global i8
+declare void @Enemy_move2(%.struct5*) nounwind
 declare void @glutLeaveGameMode() nounwind
 declare void @glTranslated(double, double, double) nounwind
-declare void @Stage_18(%.struct4*) nounwind
-declare void @Stage_6(%.struct4*) nounwind
+declare %.struct8* @newShip(double, double) nounwind
+declare void @addShot(double, double, double) nounwind
+@randomValue = external global i32
 @float = external global float
+@bulletsCnt = external global i32
 @GL_LIGHTING = external global i32
 declare void @glMatrixMode(i32) nounwind
 declare void @glutFullScreen() nounwind
 declare void @glMaterialfv(i32, i32, float*) nounwind
 declare void @glutInitDisplayMode(i32) nounwind
+@Bullet = external global %.struct6
 declare void @glDisable(i32) nounwind
 @short = external global i16
-declare void @ptn3r() nounwind
-declare void @Game_stageStart(%.struct1*) nounwind
-declare void @Stage_init(%.struct4*) nounwind
+declare i8* @malloc(i64) nounwind
 declare void @glViewport(i32, i32, i32, i32) nounwind
 declare void @glutInitWindowSize(i32, i32) nounwind
 @GL_COLOR_BUFFER_BIT = external global i32
-declare void @Game_title(%.struct1*) nounwind
 declare void @glutSpecialUpFunc(void(i8, i32, i32)*) nounwind
-declare void @Game_ending(%.struct1*) nounwind
-declare void @ptn1() nounwind
-declare void @Stage_5(%.struct4*) nounwind
-declare void @Game_ranking(%.struct1*) nounwind
-declare void @ptn2c() nounwind
+declare void @Enemy_wait(%.struct5*, i32, void(%.struct5*)*) nounwind
+@rank = external global i32
+@score = external global i32
+declare %.struct9* @newParticle() nounwind
+declare void @addParticles(double, double, i32) nounwind
 @GLUT_KEY_RIGHT = external global i8
-declare void @ptn3l() nounwind
-declare void @Game_title_draw() nounwind
 declare void @glLoadIdentity() nounwind
 declare void @main_display() nounwind
+declare i32 @Particle_move(%.struct9*) nounwind
 @GLUT_KEY_DOWN = external global i8
 @fullscreen = external global i32
 @GL_QUADS = external global i32
-declare void @Game_continue(%.struct1*) nounwind
+@particles = external global [50 x %.struct9*]
 @GL_MODELVIEW = external global i32
 @GL_BLEND = external global i32
+declare %.struct10* @newShot() nounwind
 declare void @print_d(double) nounwind
 declare void @main(i32, i8**) nounwind
 @char = external global i8
-declare void @color(float, float, float, float) nounwind
+declare double @cos(double) nounwind
+@shotsCnt = external global i32
 declare void @glutDisplayFunc(void()*) nounwind
-declare void @Stage_17(%.struct4*) nounwind
+declare i32 @Bullet_move(%.struct9*) nounwind
 declare void @println(i8*) nounwind
 @GL_FRONT_AND_BACK = external global i32
-declare void @ptn2r() nounwind
 declare void @glFlush() nounwind
 declare void @glPushMatrix() nounwind
+declare double @atan(double) nounwind
 declare void @glutMainLoop() nounwind
-declare void @tmsl() nounwind
 @key = external global %.struct2
 @GLUT_KEY_LEFT = external global i8
 declare void @glutEnterGameMode() nounwind
@@ -79,74 +90,70 @@ declare void @glutEnterGameMode() nounwind
 @GL_POSITION = external global i32
 declare void @gluPerspective(double, double, double, double) nounwind
 @GL_DEPTH_TEST = external global i32
-declare void @ptn7() nounwind
 declare void @glRotated(double, double, double, double) nounwind
-declare void @ptn4r() nounwind
 @long = external global i64
+declare void @Shot_init(%.struct10*, double, double, double) nounwind
 declare void @glutGameModeString(i8*) nounwind
-@Game = external global %.struct1
+declare double @normalRad(double) nounwind
+declare void @Enemy_init(%.struct5*, double, double, double) nounwind
+declare void @Ship_init(%.struct8*) nounwind
+@Enemy = external global %.struct4
 declare void @gluLookAt(double, double, double, double, double, double, double, double, double) nounwind
 declare void @upKey(i8, i32, i32) nounwind
-@ship = external global %.struct3
+declare double @atan2(double, double) nounwind
+@bool = external global i32
+@ship = external global %.struct8*
 declare void @glutInit(i32*, i8**) nounwind
-declare void @Stage_1(%.struct4*) nounwind
 declare void @glutReshapeWindow(i32, i32) nounwind
 declare void @downKey(i8, i32, i32) nounwind
-declare void @ptn4l() nounwind
+@PI = external global double
 @GL_POLYGON = external global i32
+@shots = external global [10 x %.struct10*]
+@enemies = external global [10 x %.struct5*]
 @Ship = external global %.struct3
 @GL_SRC_ALPHA = external global i32
-declare void @Stage_8(%.struct4*) nounwind
-declare void @Game_game(%.struct1*) nounwind
+declare void @onEnter() nounwind
+declare void @Particle_draw(%.struct9*) nounwind
 declare void @glutCreateWindow(i8*) nounwind
-declare void @Stage_10(%.struct4*) nounwind
 @int = external global i32
-declare void @ptn2l() nounwind
-declare void @Game_damage(%.struct1*) nounwind
+declare void @Enemy_draw(%.struct5*) nounwind
 declare void @glNormal3d(double, double, double) nounwind
-@GLUT_DOUBLE = external global i32
+declare %.struct5* @newEnemy() nounwind
 declare void @glBegin(i32) nounwind
 declare void @glPopMatrix() nounwind
-declare void @boss1() nounwind
-declare void @Stage_16(%.struct4*) nounwind
-declare void @Stage_4(%.struct4*) nounwind
+declare void @Bullet_draw(%.struct9*) nounwind
+@true = external global i32
 declare void @exit(i32) nounwind
-declare void @Stage_9(%.struct4*) nounwind
 declare void @glLightfv(i32, i32, float*) nounwind
 declare void @glVertex2d(double, double) nounwind
-declare void @Stage_13(%.struct4*) nounwind
 declare void @glColor4d(double, double, double, double) nounwind
 declare void @print_l(i64) nounwind
-declare void @Stage_ending(%.struct4*) nounwind
-declare void @Game_nameEntry(%.struct1*) nounwind
+declare void @addBullet(double, double, double) nounwind
 declare void @glVertex3d(double, double, double) nounwind
 declare void @glBlendFunc(i32, i32) nounwind
 @GL_LINE_LOOP = external global i32
 declare void @main_loop(i32) nounwind
-declare void @Game_title_end(%.struct1*) nounwind
-declare void @Game_init(%.struct1*) nounwind
-declare void @Game_game_draw() nounwind
-declare void @Game_nextStage(%.struct1*) nounwind
+declare double @abs(double) nounwind
+@Particle = external global %.struct6
+declare void @Bullet_init(%.struct9*, double, double, double) nounwind
+declare void @Enemy_move1(%.struct5*) nounwind
 @GLUT_KEY_UP = external global i8
-@Stage = external global %.struct4
-@game = external global %.struct1
-declare void @ptn_hatena() nounwind
+@particlesCnt = external global i32
+declare double @sin(double) nounwind
+declare void @addBulletN(double, double, double, i32, double) nounwind
 declare void @glutSpecialFunc(void(i8, i32, i32)*) nounwind
-declare void @Stage_3(%.struct4*) nounwind
 @byte = external global i8
 declare void @print_s(i16) nounwind
 declare void @print_i(i32) nounwind
-declare void @Stage_12(%.struct4*) nounwind
 declare void @glEnable(i32) nounwind
-declare void @Ship_draw() nounwind
+declare void @Ship_draw(%.struct8*) nounwind
 @GL_ONE = external global i32
 declare void @glutTimerFunc(i32, void(i32)*, i32) nounwind
 declare void @glClear(i32) nounwind
+declare %.struct9* @newBullet() nounwind
+declare void @Particle_init(%.struct9*, double, double, double) nounwind
 declare void @glEnd() nounwind
-declare void @tmsr() nounwind
-declare void @Stage_7(%.struct4*) nounwind
 @GL_DEPTH_BUFFER_BIT = external global i32
-declare void @Game_demo(%.struct1*) nounwind
 declare void @glutPostRedisplay() nounwind
 declare void @glScaled(double, double, double) nounwind
 @Key = external global %.struct2

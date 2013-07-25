@@ -2,8 +2,8 @@ import math
 import opengl
 
 typedef bool = int
-var false:int = 1
-var true:int = 0
+var false:int = 0
+var true:int = 1
 
 var GLUT_RGBA:int = 0
 var GLUT_NUMBER:int = 2
@@ -73,10 +73,10 @@ var ship:Ptr[Ship]
 
 var enemies:Array[Ptr[Enemy],10]
 var enemiesCnt:int = 10
-var bullets:Array[Ptr[Bullet],500]
-var bulletsCnt:int = 500
-var particles:Array[Ptr[Particle], 500]
-var particlesCnt:int = 500
+var bullets:Array[Ptr[Bullet],50]
+var bulletsCnt:int = 50
+var particles:Array[Ptr[Particle], 50]
+var particlesCnt:int = 50
 var shots:Array[Ptr[Shot],10]
 var shotsCnt:int = 10
 var score:int = 0
@@ -84,9 +84,9 @@ var rank:int = 0
 var randomValue:int = 1143241
 
 
-def main() {
+def main(argc:int, argv:Ptr[Ptr[char]]) {
     ship = newShip(230.0, 450.0)
-//    enemy = newEnemy()
+    Ship_init(ship)
 /*
     gameover.text = "GAME OVER";
     gameover.y = 200;
@@ -96,45 +96,81 @@ def main() {
     for(var i:int = 0; i < bulletsCnt;i++) {
         bullets[i] = newBullet()
     }
-    for(i = 0; i < particlesCnt;i++) {
+    for(var i:int = 0; i < particlesCnt;i++) {
         particles[i] = newParticle()
     }
+
     for(i = 0; i < shotsCnt;i++) {
         shots[i] = newShot()
     }
     for(i = 0; i < enemiesCnt;i++) {
         enemies[i] = newEnemy()
     }
-            
+
 //            txt.width = 100;
 //            txt.height = 100;
 //            addChild(ship);
 //            addChild(txt);
+
+  glutInit(&argc, argv)
+  glutInitWindowSize(640, 480)
+  if (0) {
+    glutGameModeString("640x480:32@60")
+    glutEnterGameMode()
+  } else {
+    glutCreateWindow(argv[0])
+  }
+  //  glutFullScreen()
+  glutInitDisplayMode(GLUT_RGBA)
+  //glEnable(GL_DEPTH_TEST)
+  glEnable(GL_BLEND)
+  glEnable(GL_LIGHTING)
+  glEnable(GL_LIGHT0)
+  
+  glutDisplayFunc(main_display)
+  glutTimerFunc(20, main_loop, 0)
+
+  glutSpecialFunc(downKey)
+  glutSpecialUpFunc(upKey)
+  glutMainLoop()
+}
+
+def main_loop(a:int) {
+  onEnter()
+  glutTimerFunc(1000/50 , main_loop , 0)
 }
 
 def random():double = {
     randomValue = randomValue * 143242143 + 432414321
     var a:double = 0x7ffffffff
-    (cast(double)randomValue / a)
+    randomValue = randomValue & 0x7fffffff
+    var b:double = cast(double)randomValue
+    println("b=")
+    print_d(b)
+    (b / a)
 }
 
 def onEnter() {
+    
     var cnt = 0
+    var enemy:Ptr[Enemy]
     for (var i = 0; i < enemiesCnt; i++) {
-        var enemy = enemies[i]
+        enemy = enemies[i]
         if (enemy.visible) {
             cnt++
             enemy.move(enemy)
         }
     }
-
     if(cnt == 0 || random()*100 < rank) {
-        switch(cast(int)(random()*3)) {
+      var rn1 = random()*3
+      var rnd = cast(int)(rn1)
+        switch(rnd) {
         case 0: addEnemy(0.0, random() * 200.0, 0.0); break
         case 1: addEnemy(random() * 465.0, 0.0, PI / 2.0); break
         case 2: addEnemy(465.0, random() * 200.0, PI); break
         }
     }
+
     /*
     if(gameover.visible && key.start) {
         score = 0
@@ -175,9 +211,43 @@ def onEnter() {
     }
     for (i = 0; i < particlesCnt; i++) {
         var p = particles[i]
-        if(p.visible) Particle_move(p)
+//        println("particles")
+        print_l(i)
+        print_i(p.visible)
+//        if(p.visible) Particle_move(p)
     }
 //    txt.text = "SCORE "+score;
+}
+def main_display() {
+  var WIDTH:int = 640
+  var HEIGHT:int = 480
+  
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glViewport(0, 0, 640, 480)
+
+  glMatrixMode(GL_PROJECTION)
+  glLoadIdentity()
+
+  //視野角,アスペクト比(ウィンドウの幅/高さ),描画する範囲(最も近い距離,最も遠い距離)
+  gluPerspective(90.0, cast(double)WIDTH / cast(double)HEIGHT, 1.0, 10000.0)
+ // ライトの設定
+ var n:float = 10.0
+ var lightpos:Array[float,4]
+
+ lightpos[0] = 500.0 * n
+ lightpos[1] = 802.0 * n
+ lightpos[2] = 505.0 * n
+ lightpos[3] = 1.0
+  glLightfv(GL_LIGHT0, GL_POSITION, cast(Ptr[float])lightpos)
+
+  glMatrixMode(GL_MODELVIEW)
+  glLoadIdentity()
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE)
+  gluLookAt(0.0,0.0,320.0, //カメラの座標
+    0.0,0.0,0.0, // 注視点の座標
+    0.0,1.0,0.0) // 画面の上方向を指すベクトル 
+ 
+  glFlush()
 }
 
 def addParticles(x:double, y:double, n:int) {
@@ -211,9 +281,10 @@ def addShot(x:double, y:double, rad:double) {
 def addParticle(x:double, y:double, rad:double) {
     for (var i:int = 0; i < particlesCnt; i++) {
         var b = particles[i]
-        if(b.visible) continue
-        Particle_init(b, x, y, rad)
-        return
+        if(!b.visible) {
+          Particle_init(b, x, y, rad)
+          return
+        }
     }
 }
 
@@ -221,6 +292,8 @@ def addEnemy(x:double, y:double, rad:double) {
     for (var i:int = 0; i < enemiesCnt; i++) {
         var b = enemies[i]
         if(b.visible) continue
+        println("enemy_init")
+        print_i(i)
         Enemy_init(b, x, y, rad)
         return
     }
