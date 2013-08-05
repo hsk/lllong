@@ -83,16 +83,27 @@ object alpha {
       case e @ ETuple(t: T, ls: List[E]) =>
         val (ls1, env1) = l(ls, env)
         (p(e, e.copy(t, ls1)), env1)
-      case e @ ETypeDef(t: T, id: String) => (p(e, e.copy(t, id)), env)
-      //      case e : ECase => throw new Exception("error")
-
-      case e @ EArray(_, _, _) => (e, env)
-      case e @ EArrow(_, _, _, _) => (e, env)
+      case e @ ETypeDef(t: T, id: String) => (e, env)
+      case e @ EArray(t, a, b) =>
+        val (a1, env1) = f(a, env)
+        val (b1, env2) = f(b, env1)
+        (p(e, e.copy(t, a1, b1)), env)
+      case e @ EArrow(t, t1, a, b) =>
+        val (a1, env1) = f(a, env)
+        (p(e, e.copy(t, t1, a1, b)), env)
       case e @ EBreak(_) => (e, env)
-      case e @ ECase(_, _, _) => (e, env)
-      case e @ ECast(_, _) => (e, env)
+      case e @ ECase(t, a, b) =>
+        val (a1, env1) = f(a, env)
+        val (b1, env2) = f(b, env1)
+        (p(e, e.copy(t, a1, b1)), env)
+      case e @ ECast(t, a) =>
+        val (a1, env1) = f(a, env)
+        (p(e, e.copy(t, a1)), env)
       case e @ EContinue(_) => (e, env)
-      case e @ EDo(_, _, _) => (e, env)
+      case e @ EDo(t, ls, a) =>
+        val (ls1, env1) = l(ls, env)
+        val (a1, env2) = f(a, env1)
+        (p(e, e.copy(t, ls1, a1)), env)
       case e @ EFor(t, a, b, c, d) =>
         val (a1,env1) = f(a,env)
         val (b1,env2) = f(b,env1)
@@ -100,25 +111,49 @@ object alpha {
         val (d1,env4) = f(d,env3)
         (p(e,e.copy(t,a1,b1,c1,d1)), env)
       case e @ EFun(t, a, b, c) =>
-        
         val (c1,env1) = f(c,env)
         (p(e,e.copy(t,a,b,c1)), env)
       case e @ EGCNew(_) => (e, env)
       case e @ EGoto(_, _) => (e, env)
-      case e @ EIf(_, _, _, _) => (e, env)
+      case e @ EIf(t, a, b, c) =>
+        val (a1,env1) = f(a,env)
+        val (b1,env2) = f(b,env1)
+        val (c1,env3) = f(c,env1)
+        (p(e,e.copy(t,a1,b1,c1)), env)
       case e @ EImport(_) => (e, env)
-      case e @ ELabel(_, _, _) => (e, env)
+      case e @ ELabel(t, i, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,i,a1)), env)
       case e @ ELdd(_, _) => (e, env)
       case e @ ELds(_, _) => (e, env)
-      case e @ ENeg(_, _) => (e, env)
+      case e @ ENeg(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
       case e @ ENew(_) => (e, env)
-      case e @ ENewArray(_, _) => (e, env)
-      case e @ ENot(_, _) => (e, env)
-      case e @ EPtr(_, _) => (e, env)
-      case e @ ERef(_, _) => (e, env)
-      case e @ ERet(_, _) => (e, env)
-      case e @ ESizeOf(_, _, _) => (e, env)
-      case e @ EWhile(_, _, _) => (e, env)
+      case e @ ENewArray(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
+      case e @ ENot(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
+      case e @ EPtr(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
+      case e @ ERef(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
+      case e @ ERet(t, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,a1)), env)
+      case e @ ESizeOf(t, t1, a) =>
+        val (a1,env1) = f(a,env)
+        (p(e,e.copy(t,t1,a1)), env)
+        
+      case e @ EWhile(t, a, b) =>
+        val (a1,env1) = f(a,env)
+        val (b1,env2) = f(b,env1)
+        (p(e,e.copy(t,a1,b1)), env)
+        
 
     }
     print(e+"->"+rc)
